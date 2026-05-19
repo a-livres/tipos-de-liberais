@@ -166,10 +166,7 @@
     <div class="result-divider"></div>
     <p id="result-desc" class="result-desc"></p>
     <div id="result-tags" class="result-tags"></div>
-    <div class="scores-section">
-      <div class="scores-title">Distribuição das suas respostas</div>
-      <div id="score-bars"></div>
-    </div>
+
     <div class="thinkers-section">
       <div class="thinkers-title">Pensadores de referência</div>
       <div id="thinkers-list"></div>
@@ -211,138 +208,138 @@ const thinkerKeys = {
 // Cada opção tem scores para cada perfil: [A, B, C, D]
 const questions = [
   {
-    text: "Qual deve ser o papel principal do Estado na economia?",
+    text: "O que torna uma pessoa verdadeiramente livre?",
     options: [
-      { text: "Regular ativamente o mercado, corrigir falhas e redistribuir renda para reduzir desigualdades.", scores: [4,1,0,0] },
-      { text: "Garantir estabilidade institucional, livre concorrência e regras claras para o mercado funcionar.", scores: [1,4,1,0] },
-      { text: "Limitar-se a controle monetário, abertura comercial e redução do tamanho do Estado.", scores: [0,1,4,1] },
-      { text: "Restringir-se à proteção de contratos, propriedade privada e segurança: nada além disso.", scores: [0,0,1,4] }
+      { text: "Ter direitos civis garantidos e condições materiais mínimas — saúde, educação e renda — para exercer de fato sua autonomia.", scores: [4,1,0,0] },
+      { text: "Viver numa sociedade com instituições sólidas, ordem, família estável e respeito às tradições que sustentam a convivência.", scores: [1,4,0,0] },
+      { text: "Poder empreender, contratar e competir num mercado aberto, sem burocracia nem interferência excessiva do Estado.", scores: [0,1,4,1] },
+      { text: "Ter sua vida, liberdade e propriedade privada plenamente protegidas, sem que o Estado ultrapasse esse limite.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Sobre impostos e tributação:",
+    text: "Imagine que você não sabe em qual família vai nascer — rica ou pobre, maioria ou minoria. Como deveria ser a sociedade?",
     options: [
-      { text: "Impostos progressivos são essenciais para financiar serviços públicos e reduzir desigualdades.", scores: [4,1,0,0] },
-      { text: "Tributação deve ser moderada e previsível, sem onerar excessivamente empresas e famílias.", scores: [1,4,1,0] },
-      { text: "Impostos devem ser baixos e flat, para estimular o crescimento econômico e a competitividade.", scores: [0,1,4,1] },
-      { text: "Tributação deveria ser mínima, limitada ao estritamente necessário para funções básicas do Estado.", scores: [0,0,1,4] }
+      { text: "Com fortes garantias de liberdade individual e mecanismos que protejam os menos favorecidos, pois seria irracional arriscar nascer em situação de desvantagem.", scores: [4,0,0,0] },
+      { text: "Com instituições estáveis, economia de mercado e preservação de valores tradicionais que garantam coesão social.", scores: [0,4,0,0] },
+      { text: "Com mercados livres e competitivos, pois eles criam mais mobilidade e oportunidade do que qualquer planejamento estatal.", scores: [0,1,4,0] },
+      { text: "Com Estado mínimo e ampla liberdade econômica e civil, pois a prosperidade vem da iniciativa individual, não de redistribuições.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Como você vê os programas de bem-estar social?",
+    text: "Como você avalia a desigualdade econômica numa sociedade?",
     options: [
-      { text: "Devem ser robustos e universais: saúde, educação e assistência social são direitos fundamentais.", scores: [4,1,0,0] },
-      { text: "Devem existir como rede de segurança, mas com foco em eficiência e sem criar dependência.", scores: [1,4,1,0] },
-      { text: "Devem ser mínimos e direcionados apenas aos mais vulneráveis, com forte controle de gastos.", scores: [0,1,4,1] },
-      { text: "Deveriam ser substituídos por soluções voluntárias, filantropia e mercado privado.", scores: [0,0,0,4] }
+      { text: "É um problema sério: desigualdades extremas comprometem a liberdade real das pessoas e precisam ser reduzidas por políticas públicas.", scores: [4,0,0,0] },
+      { text: "É natural em certa medida, mas deve ser moderada pelo mérito, pela família e por uma cultura de responsabilidade individual.", scores: [0,4,0,0] },
+      { text: "É um sinal de que há liberdade econômica; o que importa é garantir igualdade de regras, não de resultados.", scores: [0,1,4,1] },
+      { text: "É legítima desde que não resulte de coerção estatal; redistributivismo forçado viola direitos fundamentais.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Qual é sua posição sobre liberdade de expressão?",
+    text: "Qual deve ser o papel do Estado na área da saúde?",
     options: [
-      { text: "É fundamental, mas deve haver limites para discursos que promovam discriminação ou violência.", scores: [4,1,0,0] },
-      { text: "Deve ser ampla, com restrições apenas quando ameaçar a ordem pública e as instituições.", scores: [1,4,1,0] },
-      { text: "Deve ser bastante livre; o mercado de ideias se autorregula melhor que qualquer censura estatal.", scores: [0,1,4,1] },
-      { text: "Deve ser praticamente irrestrita: só ameaças e agressões diretas justificam qualquer limite.", scores: [0,0,1,4] }
+      { text: "Garantir saúde universal e gratuita como direito — sem acesso à saúde, a liberdade é apenas formal.", scores: [4,0,0,0] },
+      { text: "Oferecer uma rede básica de saúde pública, mas com espaço para o setor privado e sem excessiva dependência do Estado.", scores: [1,4,1,0] },
+      { text: "Estimular a concorrência entre planos e hospitais privados, com cobertura estatal mínima e focalizada nos mais pobres.", scores: [0,1,4,1] },
+      { text: "Deixar a saúde ao mercado privado e à caridade voluntária; o Estado não deve monopolizar esse setor.", scores: [0,0,0,4] }
     ]
   },
   {
-    text: "Sobre política de drogas:",
+    text: "O que você pensa sobre tributação progressiva?",
     options: [
-      { text: "Descriminalização total, com políticas públicas robustas de saúde e redução de danos.", scores: [4,0,1,1] },
-      { text: "Cautela nas reformas; mudanças abruptas podem comprometer a ordem social e a família.", scores: [0,4,0,0] },
-      { text: "Liberalização gradual, com foco em reduzir o custo do proibicionismo para a sociedade.", scores: [1,1,4,1] },
-      { text: "Legalização total: cada indivíduo é dono do próprio corpo e o Estado não tem direito de interferir.", scores: [1,0,1,4] }
+      { text: "É essencial para financiar serviços públicos e reduzir desigualdades que comprometem a liberdade concreta das pessoas.", scores: [4,1,0,0] },
+      { text: "É razoável desde que mantida em níveis moderados, com responsabilidade fiscal e sem desincentivar o trabalho e o investimento.", scores: [1,4,1,0] },
+      { text: "Deve ser baixa e simples: impostos altos travam o crescimento econômico e a inovação.", scores: [0,1,4,1] },
+      { text: "É uma forma de coerção: o Estado não tem o direito de tomar a renda das pessoas além do estritamente necessário para funções básicas.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Como você avalia a imigração e as fronteiras?",
+    text: "Como você enxerga o papel da educação pública?",
     options: [
-      { text: "Fronteiras mais abertas e acolhimento de imigrantes enriquecem cultural e economicamente a sociedade.", scores: [4,0,1,1] },
-      { text: "A imigração deve ser controlada para preservar a identidade cultural e a estabilidade social.", scores: [0,4,0,0] },
-      { text: "O livre fluxo de pessoas favorece a economia; burocracia migratória deve ser reduzida.", scores: [1,1,4,1] },
-      { text: "Pessoas devem poder circular livremente: fronteiras são uma forma de coerção estatal.", scores: [1,0,1,4] }
+      { text: "É fundamental e deve ser universal, gratuita e de qualidade — sem ela, igualdade de oportunidades não passa de promessa vazia.", scores: [4,1,0,0] },
+      { text: "É importante, mas deve preservar valores familiares e culturais; o Estado não deve impor uma visão única de mundo às crianças.", scores: [1,4,0,0] },
+      { text: "Deve competir com escolas privadas e charters: mais concorrência melhora a qualidade e a eficiência.", scores: [0,1,4,1] },
+      { text: "Deveria ser privatizada ou entregue às famílias: o Estado não precisa deter o monopólio da formação educacional.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Qual é sua visão sobre justiça social e igualdade?",
+    text: "Qual é a sua posição sobre direitos de minorias e grupos historicamente discriminados?",
     options: [
-      { text: "O Estado deve atuar ativamente para reduzir desigualdades estruturais e garantir oportunidades reais.", scores: [4,1,0,0] },
-      { text: "A igualdade perante a lei é o que importa; desigualdades naturais de mérito são legítimas.", scores: [1,4,1,0] },
-      { text: "Igualdade de oportunidades deve vir da competição justa no mercado, não de intervenção estatal.", scores: [0,1,4,1] },
-      { text: "Qualquer redistribuição forçada viola direitos individuais: liberdade e propriedade vêm antes.", scores: [0,0,1,4] }
+      { text: "O Estado deve atuar ativamente para corrigir discriminações e ampliar direitos civis — faz parte da liberdade real.", scores: [4,0,0,0] },
+      { text: "Direitos individuais devem ser respeitados, mas políticas de identidade podem fragmentar a coesão social e cultural.", scores: [0,4,0,0] },
+      { text: "O mercado e a meritocracia, em condições de liberdade, tendem a eliminar discriminações ao longo do tempo.", scores: [0,1,4,1] },
+      { text: "Cada pessoa deve ser julgada individualmente; políticas de grupo violam o princípio da igualdade perante a lei.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Sobre regulação ambiental:",
+    text: "Sobre o Estado de bem-estar social — previdência, seguro-desemprego, assistência social:",
     options: [
-      { text: "O Estado deve regular fortemente as emissões e financiar a transição para energia limpa.", scores: [4,1,0,0] },
-      { text: "Regulação ambiental é necessária, mas deve ser equilibrada com crescimento econômico.", scores: [1,4,1,0] },
-      { text: "Instrumentos de mercado como precificação de carbono são mais eficientes que regulação direta.", scores: [0,1,4,1] },
-      { text: "Direitos de propriedade bem definidos resolvem problemas ambientais sem necessidade de regulação.", scores: [0,0,1,4] }
+      { text: "São conquistas civilizatórias: garantem que todos tenham condições mínimas de exercer sua liberdade com dignidade.", scores: [4,0,0,0] },
+      { text: "São necessários como rede de segurança, mas devem ser contidos para não gerar dependência ou desequilíbrio fiscal.", scores: [1,4,1,0] },
+      { text: "Devem ser enxutos e bem focalizados: gastos sociais excessivos travam o crescimento e a mobilidade econômica.", scores: [0,1,4,1] },
+      { text: "Deveriam ser substituídos por soluções voluntárias, seguros privados e filantropia — sem coerção fiscal.", scores: [0,0,0,4] }
     ]
   },
   {
-    text: "Como você vê o sistema de saúde ideal?",
+    text: "Como você avalia privatizações de serviços públicos?",
     options: [
-      { text: "Universal e público, financiado por impostos: saúde é direito, não mercadoria.", scores: [4,0,0,0] },
-      { text: "Misto: sistema público como base com complementação privada, priorizando eficiência e qualidade.", scores: [1,4,1,0] },
-      { text: "Predominantemente privado e competitivo, com cobertura mínima estatal para os mais pobres.", scores: [0,1,4,1] },
-      { text: "Totalmente privado e voluntário: seguros, planos e caridade suprem quem o mercado não alcança.", scores: [0,0,0,4] }
+      { text: "Com muita cautela: privatizar saúde, educação e saneamento pode excluir quem não pode pagar e ampliar desigualdades.", scores: [4,0,0,0] },
+      { text: "Caso a caso: alguns setores estratégicos devem permanecer públicos; outros podem funcionar melhor na iniciativa privada.", scores: [1,4,1,0] },
+      { text: "Em geral positivas: a iniciativa privada tende a ser mais eficiente e inovadora do que monopólios estatais.", scores: [0,1,4,1] },
+      { text: "Amplamente desejáveis: o Estado não deveria operar empresas nem serviços que o mercado pode prover.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Qual deve ser o papel do Estado na educação?",
+    text: "Qual é o papel legítimo da tradição e da religião na vida pública?",
     options: [
-      { text: "Garantir educação pública gratuita e de qualidade em todos os níveis, como direito universal.", scores: [4,1,0,0] },
-      { text: "Oferecer educação básica pública e incentivar a concorrência com escolas privadas e vouchers.", scores: [1,4,2,0] },
-      { text: "Promover concorrência via vouchers e escolas charter, reduzindo o monopólio estatal na educação.", scores: [0,1,4,1] },
-      { text: "Deixar a educação ao mercado e famílias: o Estado não deve monopolizar a formação das crianças.", scores: [0,0,1,4] }
+      { text: "A esfera pública deve ser laica e plural: religião é assunto privado e não deve pautar leis nem políticas.", scores: [4,0,0,0] },
+      { text: "Tradição e religião sustentam valores morais importantes para a coesão social e devem ter espaço na vida pública.", scores: [0,4,0,0] },
+      { text: "São questões privadas que não devem interferir no funcionamento dos mercados nem na liberdade econômica.", scores: [0,1,4,0] },
+      { text: "Cada indivíduo decide; o Estado não deve nem promover nem restringir quaisquer crenças ou práticas.", scores: [1,0,1,4] }
     ]
   },
   {
-    text: "Sobre política monetária e banco central:",
+    text: "Sobre abertura comercial e globalização econômica:",
     options: [
-      { text: "O banco central deve ter mandato duplo: controlar inflação e promover emprego e crescimento.", scores: [4,1,0,0] },
-      { text: "O banco central deve ser independente e focado na estabilidade de preços e do sistema financeiro.", scores: [1,4,1,0] },
-      { text: "Regras monetárias rígidas e previsíveis são melhores do que discricionariedade dos banqueiros centrais.", scores: [0,1,4,1] },
-      { text: "O banco central é uma instituição coercitiva; moeda competitiva e padrão-ouro são alternativas legítimas.", scores: [0,0,1,4] }
+      { text: "Pode ser benéfica, mas precisa vir acompanhada de proteções sociais para quem perde emprego ou renda no processo.", scores: [4,1,0,0] },
+      { text: "Deve ser feita com cautela para preservar setores estratégicos, empregos nacionais e soberania econômica.", scores: [1,4,0,0] },
+      { text: "Quanto mais abertura, melhor: livre comércio gera crescimento, eficiência e redução de preços para todos.", scores: [0,1,4,1] },
+      { text: "Fronteiras comerciais são formas de coerção: pessoas e mercadorias deveriam circular livremente.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Como você vê o livre comércio internacional?",
+    text: "O que você pensa sobre regulação de empresas e mercados?",
     options: [
-      { text: "É positivo, mas deve ser acompanhado de proteções sociais para quem é prejudicado.", scores: [4,1,0,0] },
-      { text: "É importante, mas certos setores estratégicos merecem proteção por razões de segurança nacional.", scores: [1,4,1,0] },
-      { text: "Livre comércio deve ser a regra; tarifas e protecionismo geram ineficiência e pobreza.", scores: [0,1,4,1] },
-      { text: "Comércio entre indivíduos não deve ter nenhuma barreira imposta por governos.", scores: [0,0,1,4] }
+      { text: "Mercados precisam ser regulados para evitar abusos, monopólios, degradação ambiental e exploração trabalhista.", scores: [4,1,0,0] },
+      { text: "Regulação é necessária para garantir ordem e concorrência justa, mas não deve ser excessiva a ponto de travar o empreendedorismo.", scores: [1,4,1,0] },
+      { text: "O excesso de regulação é o principal obstáculo ao crescimento: menos burocracia e mais mercado.", scores: [0,1,4,1] },
+      { text: "Contratos e direitos de propriedade bem definidos bastam; regulação estatal costuma gerar mais problemas do que resolve.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Sobre direitos civis e comportamento individual:",
+    text: "Como você vê a cooperação internacional e os organismos multilaterais?",
     options: [
-      { text: "O Estado deve garantir e expandir direitos civis, combatendo discriminação de forma ativa.", scores: [4,0,1,1] },
-      { text: "Direitos civis são importantes, mas mudanças muito rápidas nos costumes podem desestabilizar a sociedade.", scores: [0,4,0,0] },
-      { text: "Cada pessoa deve ter liberdade plena sobre sua vida privada, sem interferência do Estado ou da maioria.", scores: [1,1,4,2] },
-      { text: "Liberdade individual é absoluta: nenhuma maioria tem o direito de ditar como o indivíduo deve viver.", scores: [1,0,1,4] }
+      { text: "São fundamentais: problemas globais como desigualdade, clima e direitos humanos exigem soluções globais e solidariedade entre países.", scores: [4,0,1,0] },
+      { text: "Têm valor, mas a soberania nacional e os interesses do país devem sempre prevalecer sobre compromissos internacionais.", scores: [0,4,0,0] },
+      { text: "São úteis quando promovem livre comércio e estabilidade, mas devem evitar interferir nas políticas internas dos países.", scores: [0,1,4,0] },
+      { text: "Tendem a ser burocráticos e a ampliar o poder de Estados sobre indivíduos; a cooperação deve ser voluntária e descentralizada.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "Qual é a sua visão sobre segurança pública?",
+    text: "O que você pensa sobre propriedade privada?",
     options: [
-      { text: "Combater as raízes sociais do crime: desigualdade, exclusão e falta de oportunidades.", scores: [4,0,0,0] },
-      { text: "Equilíbrio entre prevenção social, policiamento eficiente e respeito às instituições democráticas.", scores: [1,4,1,0] },
-      { text: "Eficiência policial e leis claras são centrais; o mercado privado de segurança pode complementar.", scores: [0,1,4,1] },
-      { text: "O indivíduo tem amplo direito à autodefesa; o monopólio estatal da força deve ser questionado.", scores: [0,0,1,4] }
+      { text: "É um direito importante, mas deve ter função social: propriedade excessivamente concentrada prejudica a liberdade dos demais.", scores: [4,0,0,0] },
+      { text: "É um pilar fundamental da liberdade e da ordem social; sua proteção deve ser garantida pelo Estado.", scores: [1,4,1,1] },
+      { text: "É a base do crescimento econômico: segurança jurídica e proteção à propriedade atraem investimento e inovação.", scores: [0,1,4,1] },
+      { text: "É um direito natural e inviolável: nenhum governo legítimo pode confiscar ou redistribuir a propriedade de ninguém.", scores: [0,0,1,4] }
     ]
   },
   {
-    text: "O que mais define uma sociedade verdadeiramente livre?",
+    text: "Qual das frases abaixo mais se aproxima da sua visão sobre liberdade e Estado?",
     options: [
-      { text: "Igualdade de oportunidades reais, dignidade para todos e proteção dos mais vulneráveis.", scores: [4,0,0,0] },
-      { text: "Instituições sólidas, Estado de direito, democracia representativa e responsabilidade fiscal.", scores: [1,4,1,0] },
-      { text: "Mercados livres, preços competitivos, estabilidade monetária e mínima burocracia.", scores: [0,1,4,1] },
-      { text: "Soberania individual plena, propriedade privada inviolável e Estado que não interfere na vida pessoal.", scores: [0,0,0,4] }
+      { text: "Liberdade sem igualdade de condições é privilégio de poucos. O Estado deve ampliar a liberdade real de todos.", scores: [4,0,0,0] },
+      { text: "A liberdade floresce em sociedades com instituições sólidas, valores compartilhados e mudanças graduais e responsáveis.", scores: [0,4,0,0] },
+      { text: "A liberdade econômica é a base de todas as outras liberdades: quando o Estado controla a economia, controla as pessoas.", scores: [0,1,4,1] },
+      { text: "O Estado mínimo é a única forma de governo compatível com o respeito pleno aos direitos individuais.", scores: [0,0,1,4] }
     ]
   }
 ];
@@ -365,8 +362,8 @@ const results = {
     desc: "Você valoriza a liberdade dentro de instituições sólidas e tradições testadas pelo tempo. Defende Estado de direito, democracia representativa, responsabilidade fiscal e livre mercado: com prudência nas reformas e atenção à estabilidade social.",
     tags: ["Estado de direito", "Responsabilidade fiscal", "Livre mercado", "Democracia representativa", "Prudência nas reformas"],
     thinkers: [
-      { name: "Friedrich Hayek", desc: "Crítico do planejamento central, defendeu a ordem espontânea do mercado e os limites do conhecimento estatal." },
-      { name: "Milton Friedman", desc: "Economista da Escola de Chicago, advogou por liberdade econômica, controle monetário e mínima intervenção do Estado." }
+      { name: "Edmund Burke", desc: "Pai do conservadorismo moderno, defendeu as tradições e instituições como guardiãs da liberdade contra o radicalismo." },
+      { name: "Michael Oakeshott", desc: "Filósofo britânico que valorizou a prática política como arte do possível, avesso a projetos racionais abstratos." }
     ]
   },
   C: {
@@ -375,8 +372,8 @@ const results = {
     desc: "Você prioriza mercados competitivos, abertura econômica, controle fiscal rígido e redução do tamanho do Estado. Acredita que a eficiência do mercado supera a intervenção estatal na maioria dos domínios e que o crescimento econômico é o melhor caminho para o bem-estar.",
     tags: ["Mercados competitivos", "Abertura econômica", "Controle fiscal", "Privatizações", "Eficiência de mercado"],
     thinkers: [
-      { name: "Milton Friedman", desc: "Pai do monetarismo moderno, defensor de mercados livres, escola de vouchers e regras monetárias claras." },
-      { name: "Friedrich Hayek", desc: "Argumentou que o sistema de preços carrega mais informação do que qualquer planejador central poderia processar." }
+      { name: "Friedrich Hayek", desc: "Crítico do planejamento central, defendeu a ordem espontânea do mercado e os limites do conhecimento estatal." },
+      { name: "Milton Friedman", desc: "Pai do monetarismo moderno, defensor de mercados livres, escola de vouchers e regras monetárias claras." }
     ]
   },
   D: {
@@ -525,27 +522,10 @@ function showResult() {
     thinkersEl.appendChild(card);
   });
 
-  const barsEl = document.getElementById("score-bars");
-  const maxVal = Math.max.apply(null, Object.values(scores));
-  Object.entries(scoreLabels).forEach(function(entry) {
-    const k = entry[0]; const label = entry[1];
-    const v = scores[k];
-    const row = document.createElement("div");
-    row.className = "score-row";
-    row.innerHTML = "<span class=\"score-label\">" + label + "</span>" +
-      "<div class=\"score-track\"><div class=\"score-fill\" style=\"width:0%\" data-pct=\"" + Math.round((v/maxVal)*100) + "\"></div></div>" +
-      "<span class=\"score-val\">" + v + "</span>";
-    barsEl.appendChild(row);
-  });
+
 
   document.getElementById("result").style.display = "block";
-  requestAnimationFrame(function() {
-    setTimeout(function() {
-      document.querySelectorAll(".score-fill").forEach(function(el) {
-        el.style.width = el.dataset.pct + "%";
-      });
-    }, 80);
-  });
+
 }
 
 loadQuestion();
