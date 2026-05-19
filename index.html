@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Liberal: Livres</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple: #640b9b; --teal: #00b99f; --light: #efefef; --dark: #000000;
+    --purple-light: #7d12c0; --purple-dim: rgba(100,11,155,0.08); --teal-dim: rgba(0,185,159,0.12);
+  }
+  body {
+    font-family: "Figtree", sans-serif; background: var(--light);
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 32px 16px;
+  }
+  body::before, body::after {
+    content: ""; position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 0;
+  }
+  body::before { width: 420px; height: 420px; background: rgba(100,11,155,0.13); top: -80px; left: -120px; }
+  body::after  { width: 360px; height: 360px; background: rgba(0,185,159,0.13); bottom: -60px; right: -100px; }
+
+  #quiz-container {
+    position: relative; z-index: 1; background: #fff; width: 100%; max-width: 800px;
+    border-radius: 24px; padding: 48px 52px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 16px 48px rgba(100,11,155,0.10); overflow: hidden;
+  }
+  #quiz-container::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg, var(--purple) 0%, var(--teal) 100%);
+  }
+  .quiz-header { text-align: center; margin-bottom: 36px; }
+  .quiz-eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+  h1 { font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 900; color: var(--dark); line-height: 1.2; }
+  h1 span { color: var(--purple); }
+
+  .progress-wrap { margin-bottom: 32px; }
+  .progress-meta { display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 600; color: #888; margin-bottom: 8px; }
+  .progress-bar { width: 100%; height: 8px; background: var(--light); border-radius: 99px; overflow: hidden; }
+  #progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--purple), var(--teal)); border-radius: 99px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
+
+  .question-number { font-size: 0.78rem; font-weight: 700; color: var(--purple); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  #question-text { font-size: 1.18rem; font-weight: 700; color: var(--dark); line-height: 1.45; margin-bottom: 24px; }
+
+  .options { display: flex; flex-direction: column; gap: 11px; }
+  .option-btn {
+    display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px;
+    border: 2px solid #e0e0e0; background: #fff; color: var(--dark);
+    border-radius: 14px; font-family: "Figtree", sans-serif; font-size: 0.93rem;
+    font-weight: 500; cursor: pointer; text-align: left;
+    transition: border-color 0.18s, background 0.18s, transform 0.18s, box-shadow 0.18s; line-height: 1.45;
+  }
+  .option-letter {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--purple-dim); color: var(--purple); font-size: 0.78rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.18s, color 0.18s; margin-top: 1px;
+  }
+  .option-btn:hover { border-color: var(--purple); background: var(--purple-dim); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(100,11,155,0.10); }
+  .option-btn:hover .option-letter { background: var(--purple); color: #fff; }
+  .option-btn.selected { border-color: var(--teal); background: var(--teal-dim); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,185,159,0.12); pointer-events: none; }
+  .option-btn.selected .option-letter { background: var(--teal); color: #fff; }
+
+  /* Email gate */
+  #email-gate { display: none; text-align: center; animation: fadeUp 0.5s ease both; }
+  .email-icon { width: 68px; height: 68px; background: var(--purple-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2rem; }
+  .email-gate-title { font-size: 1.55rem; font-weight: 900; color: var(--dark); margin-bottom: 10px; }
+  .email-gate-desc { font-size: 0.97rem; color: #666; line-height: 1.65; margin-bottom: 28px; max-width: 440px; margin-left: auto; margin-right: auto; }
+  .email-input-wrap { display: flex; gap: 10px; max-width: 480px; margin: 0 auto 8px; }
+  .email-input { flex: 1; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-family: "Figtree", sans-serif; font-size: 0.97rem; color: var(--dark); outline: none; transition: border-color 0.18s; }
+  .email-input:focus { border-color: var(--purple); }
+  .email-input.error { border-color: #e53935; }
+  .email-submit-btn { padding: 14px 24px; border: none; background: linear-gradient(135deg, var(--purple), var(--purple-light)); color: #fff; border-radius: 12px; font-family: "Figtree", sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; box-shadow: 0 4px 16px rgba(100,11,155,0.25); white-space: nowrap; }
+  .email-submit-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+  .email-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .email-error-msg { font-size: 0.8rem; color: #e53935; margin-bottom: 8px; display: none; text-align: center; }
+  .email-status { font-size: 0.85rem; margin-top: 12px; min-height: 20px; font-weight: 600; }
+  .email-status.success { color: var(--teal); }
+  .email-status.fail { color: #e53935; }
+  .email-skip { display: inline-block; margin-top: 16px; font-size: 0.82rem; color: #bbb; cursor: pointer; background: none; border: none; font-family: "Figtree", sans-serif; text-decoration: underline; }
+  .email-skip:hover { color: #888; }
+
+  /* Result */
+  #result { display: none; text-align: center; animation: fadeUp 0.5s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .result-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+  .result-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-dim); color: var(--purple); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 99px; margin-bottom: 20px; }
+  .result-title { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 900; color: var(--dark); margin-bottom: 6px; line-height: 1.15; }
+  .result-subtitle { font-size: 1rem; font-weight: 600; color: var(--purple); margin-bottom: 24px; }
+  .result-divider { width: 56px; height: 4px; background: linear-gradient(90deg, var(--purple), var(--teal)); border-radius: 99px; margin: 0 auto 24px; }
+  .result-desc { font-size: 1rem; line-height: 1.75; color: #444; max-width: 580px; margin: 0 auto 28px; }
+  .result-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
+  .tag { font-size: 0.78rem; font-weight: 600; padding: 5px 14px; border-radius: 99px; background: var(--light); color: #555; border: 1.5px solid #ddd; }
+
+  /* Score bars */
+  .scores-section { background: var(--light); border-radius: 16px; padding: 24px 28px; margin-bottom: 32px; text-align: left; }
+  .scores-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 16px; text-align: center; }
+  .score-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .score-label { font-size: 0.78rem; font-weight: 700; color: var(--dark); width: 140px; flex-shrink: 0; }
+  .score-track { flex: 1; height: 8px; background: #ddd; border-radius: 99px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--purple), var(--teal)); transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+  .score-val { font-size: 0.78rem; font-weight: 700; color: #888; width: 28px; flex-shrink: 0; text-align: right; }
+
+  /* Thinkers */
+  .thinkers-section { margin-bottom: 32px; text-align: left; }
+  .thinkers-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 16px; text-align: center; }
+  .thinker-card { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px; border-radius: 14px; background: var(--purple-dim); margin-bottom: 10px; }
+  .thinker-avatar { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; color: #fff; overflow: hidden; }
+  .thinker-name { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .thinker-desc { font-size: 0.82rem; color: #555; line-height: 1.5; }
+
+  .restart-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border: none; background: linear-gradient(135deg, var(--purple) 0%, var(--purple-light) 100%); color: #fff; border-radius: 12px; font-family: "Figtree", sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; box-shadow: 0 4px 16px rgba(100,11,155,0.25); }
+  .restart-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+  @media (max-width: 600px) {
+    #quiz-container { padding: 36px 22px; }
+    .score-label { width: 100px; font-size: 0.7rem; }
+    .email-input-wrap { flex-direction: column; }
+    .email-submit-btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div id="quiz-container">
+
+  <!-- QUIZ -->
+  <div id="quiz-ui">
+    <div class="quiz-header">
+      <div class="quiz-eyebrow">Livres · Associação Liberal</div>
+      <h1>Qual tipo de <span>liberal</span> você é?</h1>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="progress-label">Pergunta 1 de 15</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div id="progress"></div></div>
+    </div>
+    <div id="question-number" class="question-number"></div>
+    <div id="question-text"></div>
+    <div id="options-container" class="options"></div>
+  </div>
+
+  <!-- EMAIL GATE -->
+  <div id="email-gate">
+    <div class="email-icon">✉️</div>
+    <div class="email-gate-title">Quase lá!</div>
+    <p class="email-gate-desc">Informe seu e-mail para ver seu perfil liberal. Prometemos não encher sua caixa de entrada: apenas conteúdo relevante do Livres.</p>
+    <div class="email-input-wrap">
+      <input type="email" id="email-input" class="email-input" placeholder="seu@email.com" />
+      <button class="email-submit-btn" id="email-submit-btn" onclick="submitEmail()">Ver resultado →</button>
+    </div>
+    <div class="email-error-msg" id="email-error">Por favor, insira um e-mail válido.</div>
+    <div class="email-status" id="email-status"></div>
+    <button class="email-skip" onclick="skipEmail()">Pular esta etapa</button>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="result">
+    <div class="result-eyebrow">Livres · Resultado</div>
+    <div class="result-badge">✦ Perfil identificado</div>
+    <div id="result-text" class="result-title"></div>
+    <div id="result-subtitle" class="result-subtitle"></div>
+    <div class="result-divider"></div>
+    <p id="result-desc" class="result-desc"></p>
+    <div id="result-tags" class="result-tags"></div>
+    <div class="scores-section">
+      <div class="scores-title">Distribuição das suas respostas</div>
+      <div id="score-bars"></div>
+    </div>
+    <div class="thinkers-section">
+      <div class="thinkers-title">Pensadores de referência</div>
+      <div id="thinkers-list"></div>
+    </div>
+    <button class="restart-btn" onclick="location.reload()">↺ &nbsp;Refazer o quiz</button>
+  </div>
+
+</div>
+<script>
+// ── Configuração Odoo ─────────────────────────────────────────────
+const ODOO_URL    = "https://eusoulivres.odoo.com";
+const ODOO_DB     = "eusoulivres";
+const ODOO_APIKEY = "SUA_API_KEY_AQUI";
+// ─────────────────────────────────────────────────────────────────
+
+const thinkerImages = {
+  "mill": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDx8sc0h5pMc05QSQKzOgQKWOACT2xXQ2Pg3VLyESlEiU9A55/Kr2i6MZ44FRFEok+Zj1z2FetadZQraqo5KjFc1as4/CaQgnueM3fg/VLRN2EceimsOa1uLc/vYnT6ivedRSJo2TABrgNdtV8psDqDkY61NOu3oy5U9NDz/Oaaanlt2jf7px2qEjFdSZlYZmlBpcZ60jLxTFYeatWEAlmUuSFB7dTVU1ZsphFL83TqD71Mthrc7jRr1UvolbCoT+td/Z3AKFy6qoGct6V5fYES3kcuAqE5duoFd9PZLdWiKko8tcMRjIb0z7V59Z6nRTiLe6rp85ZYbhGdT/C2c1zviOaKSVYRcIuxSFU9c1b0rQWW6nlnkSZ1O8EKFAOemBx04rA1/TW/tu9VJWCu4cZGcgjOKIqN9ync5vzWVpo3OFJ6HtWdOV807eh9as6ipivZEDZGRk+9UTknJrujtc52FIxzQRk0bWwTirJH44p2FA96UKSKaRilcDY0jUPIUwsGbJBTHau80q7eayEauR6fSvLredbeZHcZUGu+sZWsfJmOFgmQFGzkEetc1em2ro2pTs7M6P8A49ImcTKpTB2v/H3P046Vy2r6mb/UJZxbeTtiwMtktj1/CuiaO0u7PML27u+S8rDJJ74rh9bdbORgsiM5GAUHGKwpq7sazfU52Zi8rsTkk5qMjilJ4pprvRysOnSlzkYpB1pDz0phckDcVBLcBTgcmq7zuwwTgegqOrUe5m5EjSs3JrW0XxBcaVIin97bBsmJuceuPSsWlHUVVkSejavf6NqdrBeaXL5E8mVuIgShzgYO3p69OtYd4+nWGmzG4k+0X8y7YYlbPlD+8x/kOtcx05qM47VCpJO5ftHaxbEysOeKfuqjmnB2XoafKLmLZY0ZwKgjlLZDcntTtxxilYdytQaDR2qyAozQKWgBCSaTFLSdqYC0UlLSAUEg5FSBsnNRU8UmNH//2Q==",
+  "rawls": "data:image/jpeg;base64,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",
+  "friedman": "data:image/jpeg;base64,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",
+  "hayek": "data:image/jpeg;base64,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",
+  "nussbaum": "data:image/jpeg;base64,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",
+  "mises": "data:image/jpeg;base64,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",
+  "rand": "data:image/jpeg;base64,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",
+  "nozick": "data:image/jpeg;base64,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",
+};
+
+const thinkerKeys = {
+  "John Stuart Mill": "mill",
+  "John Rawls": "rawls",
+  "Milton Friedman": "friedman",
+  "Friedrich Hayek": "hayek",
+  "Martha Nussbaum": "nussbaum",
+  "Ludwig von Mises": "mises",
+  "Ayn Rand": "rand",
+  "Robert Nozick": "nozick",
+};
+
+// Perfis: A=Liberal Social, B=Liberal Conservador, C=Neoliberal, D=Minarquista
+// Cada opção tem scores para cada perfil: [A, B, C, D]
+const questions = [
+  {
+    text: "Qual deve ser o papel principal do Estado na economia?",
+    options: [
+      { text: "Regular ativamente o mercado, corrigir falhas e redistribuir renda para reduzir desigualdades.", scores: [4,1,0,0] },
+      { text: "Garantir estabilidade institucional, livre concorrência e regras claras para o mercado funcionar.", scores: [1,4,1,0] },
+      { text: "Limitar-se a controle monetário, abertura comercial e redução do tamanho do Estado.", scores: [0,1,4,1] },
+      { text: "Restringir-se à proteção de contratos, propriedade privada e segurança: nada além disso.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Sobre impostos e tributação:",
+    options: [
+      { text: "Impostos progressivos são essenciais para financiar serviços públicos e reduzir desigualdades.", scores: [4,1,0,0] },
+      { text: "Tributação deve ser moderada e previsível, sem onerar excessivamente empresas e famílias.", scores: [1,4,1,0] },
+      { text: "Impostos devem ser baixos e flat, para estimular o crescimento econômico e a competitividade.", scores: [0,1,4,1] },
+      { text: "Tributação deveria ser mínima, limitada ao estritamente necessário para funções básicas do Estado.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Como você vê os programas de bem-estar social?",
+    options: [
+      { text: "Devem ser robustos e universais: saúde, educação e assistência social são direitos fundamentais.", scores: [4,1,0,0] },
+      { text: "Devem existir como rede de segurança, mas com foco em eficiência e sem criar dependência.", scores: [1,4,1,0] },
+      { text: "Devem ser mínimos e direcionados apenas aos mais vulneráveis, com forte controle de gastos.", scores: [0,1,4,1] },
+      { text: "Deveriam ser substituídos por soluções voluntárias, filantropia e mercado privado.", scores: [0,0,0,4] }
+    ]
+  },
+  {
+    text: "Qual é sua posição sobre liberdade de expressão?",
+    options: [
+      { text: "É fundamental, mas deve haver limites para discursos que promovam discriminação ou violência.", scores: [4,1,0,0] },
+      { text: "Deve ser ampla, com restrições apenas quando ameaçar a ordem pública e as instituições.", scores: [1,4,1,0] },
+      { text: "Deve ser bastante livre; o mercado de ideias se autorregula melhor que qualquer censura estatal.", scores: [0,1,4,1] },
+      { text: "Deve ser praticamente irrestrita: só ameaças e agressões diretas justificam qualquer limite.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Sobre política de drogas:",
+    options: [
+      { text: "Descriminalização total, com políticas públicas robustas de saúde e redução de danos.", scores: [4,0,1,1] },
+      { text: "Cautela nas reformas; mudanças abruptas podem comprometer a ordem social e a família.", scores: [0,4,0,0] },
+      { text: "Liberalização gradual, com foco em reduzir o custo do proibicionismo para a sociedade.", scores: [1,1,4,1] },
+      { text: "Legalização total: cada indivíduo é dono do próprio corpo e o Estado não tem direito de interferir.", scores: [1,0,1,4] }
+    ]
+  },
+  {
+    text: "Como você avalia a imigração e as fronteiras?",
+    options: [
+      { text: "Fronteiras mais abertas e acolhimento de imigrantes enriquecem cultural e economicamente a sociedade.", scores: [4,0,1,1] },
+      { text: "A imigração deve ser controlada para preservar a identidade cultural e a estabilidade social.", scores: [0,4,0,0] },
+      { text: "O livre fluxo de pessoas favorece a economia; burocracia migratória deve ser reduzida.", scores: [1,1,4,1] },
+      { text: "Pessoas devem poder circular livremente: fronteiras são uma forma de coerção estatal.", scores: [1,0,1,4] }
+    ]
+  },
+  {
+    text: "Qual é sua visão sobre justiça social e igualdade?",
+    options: [
+      { text: "O Estado deve atuar ativamente para reduzir desigualdades estruturais e garantir oportunidades reais.", scores: [4,1,0,0] },
+      { text: "A igualdade perante a lei é o que importa; desigualdades naturais de mérito são legítimas.", scores: [1,4,1,0] },
+      { text: "Igualdade de oportunidades deve vir da competição justa no mercado, não de intervenção estatal.", scores: [0,1,4,1] },
+      { text: "Qualquer redistribuição forçada viola direitos individuais: liberdade e propriedade vêm antes.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Sobre regulação ambiental:",
+    options: [
+      { text: "O Estado deve regular fortemente as emissões e financiar a transição para energia limpa.", scores: [4,1,0,0] },
+      { text: "Regulação ambiental é necessária, mas deve ser equilibrada com crescimento econômico.", scores: [1,4,1,0] },
+      { text: "Instrumentos de mercado como precificação de carbono são mais eficientes que regulação direta.", scores: [0,1,4,1] },
+      { text: "Direitos de propriedade bem definidos resolvem problemas ambientais sem necessidade de regulação.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Como você vê o sistema de saúde ideal?",
+    options: [
+      { text: "Universal e público, financiado por impostos: saúde é direito, não mercadoria.", scores: [4,0,0,0] },
+      { text: "Misto: sistema público como base com complementação privada, priorizando eficiência e qualidade.", scores: [1,4,1,0] },
+      { text: "Predominantemente privado e competitivo, com cobertura mínima estatal para os mais pobres.", scores: [0,1,4,1] },
+      { text: "Totalmente privado e voluntário: seguros, planos e caridade suprem quem o mercado não alcança.", scores: [0,0,0,4] }
+    ]
+  },
+  {
+    text: "Qual deve ser o papel do Estado na educação?",
+    options: [
+      { text: "Garantir educação pública gratuita e de qualidade em todos os níveis, como direito universal.", scores: [4,1,0,0] },
+      { text: "Oferecer educação básica pública e incentivar a concorrência com escolas privadas e vouchers.", scores: [1,4,2,0] },
+      { text: "Promover concorrência via vouchers e escolas charter, reduzindo o monopólio estatal na educação.", scores: [0,1,4,1] },
+      { text: "Deixar a educação ao mercado e famílias: o Estado não deve monopolizar a formação das crianças.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Sobre política monetária e banco central:",
+    options: [
+      { text: "O banco central deve ter mandato duplo: controlar inflação e promover emprego e crescimento.", scores: [4,1,0,0] },
+      { text: "O banco central deve ser independente e focado na estabilidade de preços e do sistema financeiro.", scores: [1,4,1,0] },
+      { text: "Regras monetárias rígidas e previsíveis são melhores do que discricionariedade dos banqueiros centrais.", scores: [0,1,4,1] },
+      { text: "O banco central é uma instituição coercitiva; moeda competitiva e padrão-ouro são alternativas legítimas.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Como você vê o livre comércio internacional?",
+    options: [
+      { text: "É positivo, mas deve ser acompanhado de proteções sociais para quem é prejudicado.", scores: [4,1,0,0] },
+      { text: "É importante, mas certos setores estratégicos merecem proteção por razões de segurança nacional.", scores: [1,4,1,0] },
+      { text: "Livre comércio deve ser a regra; tarifas e protecionismo geram ineficiência e pobreza.", scores: [0,1,4,1] },
+      { text: "Comércio entre indivíduos não deve ter nenhuma barreira imposta por governos.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "Sobre direitos civis e comportamento individual:",
+    options: [
+      { text: "O Estado deve garantir e expandir direitos civis, combatendo discriminação de forma ativa.", scores: [4,0,1,1] },
+      { text: "Direitos civis são importantes, mas mudanças muito rápidas nos costumes podem desestabilizar a sociedade.", scores: [0,4,0,0] },
+      { text: "Cada pessoa deve ter liberdade plena sobre sua vida privada, sem interferência do Estado ou da maioria.", scores: [1,1,4,2] },
+      { text: "Liberdade individual é absoluta: nenhuma maioria tem o direito de ditar como o indivíduo deve viver.", scores: [1,0,1,4] }
+    ]
+  },
+  {
+    text: "Qual é a sua visão sobre segurança pública?",
+    options: [
+      { text: "Combater as raízes sociais do crime: desigualdade, exclusão e falta de oportunidades.", scores: [4,0,0,0] },
+      { text: "Equilíbrio entre prevenção social, policiamento eficiente e respeito às instituições democráticas.", scores: [1,4,1,0] },
+      { text: "Eficiência policial e leis claras são centrais; o mercado privado de segurança pode complementar.", scores: [0,1,4,1] },
+      { text: "O indivíduo tem amplo direito à autodefesa; o monopólio estatal da força deve ser questionado.", scores: [0,0,1,4] }
+    ]
+  },
+  {
+    text: "O que mais define uma sociedade verdadeiramente livre?",
+    options: [
+      { text: "Igualdade de oportunidades reais, dignidade para todos e proteção dos mais vulneráveis.", scores: [4,0,0,0] },
+      { text: "Instituições sólidas, Estado de direito, democracia representativa e responsabilidade fiscal.", scores: [1,4,1,0] },
+      { text: "Mercados livres, preços competitivos, estabilidade monetária e mínima burocracia.", scores: [0,1,4,1] },
+      { text: "Soberania individual plena, propriedade privada inviolável e Estado que não interfere na vida pessoal.", scores: [0,0,0,4] }
+    ]
+  }
+];
+
+const results = {
+  A: {
+    title: "Liberal Social",
+    subtitle: "Progressista / Cosmopolita",
+    desc: "Você defende economia de mercado com regulação ativa, um Estado de bem-estar social robusto e ampliação de direitos civis. Acredita que reduzir desigualdades é um objetivo político legítimo e que liberdade sem condições materiais mínimas é apenas formal.",
+    tags: ["Economia regulada", "Bem-estar social", "Direitos civis amplos", "Cooperação internacional", "Redução de desigualdades"],
+    thinkers: [
+      { name: "John Stuart Mill", desc: "Defensor da liberdade individual e da autonomia como princípio central da vida pública." },
+      { name: "John Rawls", desc: "Formulou a teoria da justiça como equidade, priorizando os menos favorecidos na organização social." },
+      { name: "Martha Nussbaum", desc: "Desenvolveu a abordagem das capacidades, colocando a dignidade humana no centro da política." }
+    ]
+  },
+  B: {
+    title: "Liberal Conservador",
+    subtitle: "Ordem e Liberdade",
+    desc: "Você valoriza a liberdade dentro de instituições sólidas e tradições testadas pelo tempo. Defende Estado de direito, democracia representativa, responsabilidade fiscal e livre mercado: com prudência nas reformas e atenção à estabilidade social.",
+    tags: ["Estado de direito", "Responsabilidade fiscal", "Livre mercado", "Democracia representativa", "Prudência nas reformas"],
+    thinkers: [
+      { name: "Friedrich Hayek", desc: "Crítico do planejamento central, defendeu a ordem espontânea do mercado e os limites do conhecimento estatal." },
+      { name: "Milton Friedman", desc: "Economista da Escola de Chicago, advogou por liberdade econômica, controle monetário e mínima intervenção do Estado." }
+    ]
+  },
+  C: {
+    title: "Neoliberal",
+    subtitle: "",
+    desc: "Você prioriza mercados competitivos, abertura econômica, controle fiscal rígido e redução do tamanho do Estado. Acredita que a eficiência do mercado supera a intervenção estatal na maioria dos domínios e que o crescimento econômico é o melhor caminho para o bem-estar.",
+    tags: ["Mercados competitivos", "Abertura econômica", "Controle fiscal", "Privatizações", "Eficiência de mercado"],
+    thinkers: [
+      { name: "Milton Friedman", desc: "Pai do monetarismo moderno, defensor de mercados livres, escola de vouchers e regras monetárias claras." },
+      { name: "Friedrich Hayek", desc: "Argumentou que o sistema de preços carrega mais informação do que qualquer planejador central poderia processar." }
+    ]
+  },
+  D: {
+    title: "Minarquista",
+    subtitle: "Libertário",
+    desc: "Você defende o Estado mínimo, limitado à proteção de contratos, propriedade privada e segurança individual. Acredita que qualquer expansão além dessas funções representa uma violação da liberdade individual: e que o mercado e a cooperação voluntária resolvem o que o Estado pretende resolver pela coerção.",
+    tags: ["Estado mínimo", "Propriedade privada", "Livre mercado irrestrito", "Liberdades civis", "Voluntarismo"],
+    thinkers: [
+      { name: "Robert Nozick", desc: "Defendeu o Estado mínimo como único compatível com os direitos individuais, em contraponto a Rawls." },
+      { name: "Ludwig von Mises", desc: "Pilar da Escola Austríaca, argumentou pela impossibilidade do cálculo econômico racional sob o socialismo." },
+      { name: "Ayn Rand", desc: "Filósofa do objetivismo, celebrou o individualismo racional e o capitalismo laissez-faire como expressão máxima da liberdade." }
+    ]
+  }
+};
+
+const scoreLabels = { A: "Liberal Social", B: "Liberal Conservador", C: "Neoliberal", D: "Minarquista" };
+
+// Embaralhar perguntas e opções
+questions.sort(() => Math.random() - 0.5);
+questions.forEach(q => q.options.sort(() => Math.random() - 0.5));
+
+const LETTERS = ["A","B","C","D"];
+let current = 0;
+let scores = { A: 0, B: 0, C: 0, D: 0 };
+let winnerKey = null;
+
+function loadQuestion() {
+  const q = questions[current];
+  const total = questions.length;
+  document.getElementById("question-number").textContent = "Pergunta " + (current + 1);
+  document.getElementById("question-text").textContent = q.text;
+  document.getElementById("progress-label").textContent = "Pergunta " + (current + 1) + " de " + total;
+  const pct = Math.round((current / total) * 100);
+  document.getElementById("progress-pct").textContent = pct + "%";
+  document.getElementById("progress").style.width = pct + "%";
+  const container = document.getElementById("options-container");
+  container.innerHTML = "";
+  q.options.forEach(function(opt, i) {
+    const btn = document.createElement("button");
+    btn.className = "option-btn";
+    btn.innerHTML = "<span class=\"option-letter\">" + LETTERS[i] + "</span><span>" + opt.text + "</span>";
+    btn.onclick = function() { selectOption(btn, opt.scores); };
+    container.appendChild(btn);
+  });
+}
+
+function selectOption(btn, optScores) {
+  document.querySelectorAll(".option-btn").forEach(function(b) { b.style.pointerEvents = "none"; });
+  btn.classList.add("selected");
+  scores.A += optScores[0];
+  scores.B += optScores[1];
+  scores.C += optScores[2];
+  scores.D += optScores[3];
+  setTimeout(function() {
+    current++;
+    if (current < questions.length) loadQuestion();
+    else showEmailGate();
+  }, 400);
+}
+
+function showEmailGate() {
+  document.getElementById("progress").style.width = "100%";
+  document.getElementById("progress-pct").textContent = "100%";
+  document.getElementById("quiz-ui").style.display = "none";
+  document.getElementById("email-gate").style.display = "block";
+  winnerKey = Object.keys(scores).reduce(function(a, b) { return scores[a] >= scores[b] ? a : b; });
+  document.getElementById("email-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") submitEmail();
+  });
+}
+
+async function sendToOdoo(email) {
+  const authResp = await fetch(ODOO_URL + "/web/session/authenticate", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", method: "call", id: 1, params: { db: ODOO_DB, login: "api", password: ODOO_APIKEY } })
+  });
+  const authData = await authResp.json();
+  const uid = authData && authData.result && authData.result.uid;
+  if (!uid) throw new Error("Auth failed");
+  const createResp = await fetch(ODOO_URL + "/web/dataset/call_kw", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", method: "call", id: 2, params: { model: "res.partner", method: "create", args: [{ name: email, email: email }], kwargs: {} } })
+  });
+  const createData = await createResp.json();
+  if (createData.error) throw new Error("Erro ao salvar");
+  return createData.result;
+}
+
+async function submitEmail() {
+  const input = document.getElementById("email-input");
+  const errEl = document.getElementById("email-error");
+  const statusEl = document.getElementById("email-status");
+  const btn = document.getElementById("email-submit-btn");
+  const email = input.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    input.classList.add("error"); errEl.style.display = "block"; return;
+  }
+  input.classList.remove("error"); errEl.style.display = "none";
+  btn.disabled = true; btn.textContent = "Enviando…"; statusEl.textContent = ""; statusEl.className = "email-status";
+  try {
+    await sendToOdoo(email);
+    statusEl.textContent = "✓ E-mail registrado com sucesso!";
+    statusEl.className = "email-status success";
+    setTimeout(function() { showResult(); }, 900);
+  } catch(err) {
+    statusEl.textContent = "Não foi possível registrar agora. Mostrando seu resultado mesmo assim.";
+    statusEl.className = "email-status fail";
+    setTimeout(function() { showResult(); }, 1800);
+  }
+}
+
+function skipEmail() { showResult(); }
+
+function showResult() {
+  document.getElementById("email-gate").style.display = "none";
+  const r = results[winnerKey];
+  document.getElementById("result-text").textContent = r.title;
+  document.getElementById("result-subtitle").textContent = r.subtitle;
+  document.getElementById("result-desc").textContent = r.desc;
+
+  const tagsEl = document.getElementById("result-tags");
+  r.tags.forEach(function(t) {
+    const span = document.createElement("span");
+    span.className = "tag"; span.textContent = t; tagsEl.appendChild(span);
+  });
+
+  const thinkersEl = document.getElementById("thinkers-list");
+  r.thinkers.forEach(function(t) {
+    const card = document.createElement("div");
+    card.className = "thinker-card";
+    const avatarEl = document.createElement("div");
+    avatarEl.className = "thinker-avatar";
+    const imgKey = thinkerKeys[t.name];
+    if (imgKey && thinkerImages[imgKey]) {
+      avatarEl.style.cssText = "background:none;overflow:hidden;padding:0;";
+      const imgEl = document.createElement("img");
+      imgEl.src = thinkerImages[imgKey];
+      imgEl.style.cssText = "width:100%;height:100%;object-fit:cover;border-radius:50%;";
+      avatarEl.appendChild(imgEl);
+    } else {
+      avatarEl.textContent = t.name.charAt(0);
+    }
+    const infoEl = document.createElement("div");
+    infoEl.innerHTML = "<div class=\"thinker-name\">" + t.name + "</div><div class=\"thinker-desc\">" + t.desc + "</div>";
+    card.appendChild(avatarEl); card.appendChild(infoEl);
+    thinkersEl.appendChild(card);
+  });
+
+  const barsEl = document.getElementById("score-bars");
+  const maxVal = Math.max.apply(null, Object.values(scores));
+  Object.entries(scoreLabels).forEach(function(entry) {
+    const k = entry[0]; const label = entry[1];
+    const v = scores[k];
+    const row = document.createElement("div");
+    row.className = "score-row";
+    row.innerHTML = "<span class=\"score-label\">" + label + "</span>" +
+      "<div class=\"score-track\"><div class=\"score-fill\" style=\"width:0%\" data-pct=\"" + Math.round((v/maxVal)*100) + "\"></div></div>" +
+      "<span class=\"score-val\">" + v + "</span>";
+    barsEl.appendChild(row);
+  });
+
+  document.getElementById("result").style.display = "block";
+  requestAnimationFrame(function() {
+    setTimeout(function() {
+      document.querySelectorAll(".score-fill").forEach(function(el) {
+        el.style.width = el.dataset.pct + "%";
+      });
+    }, 80);
+  });
+}
+
+loadQuestion();
+</script>
+</body>
+</html>
