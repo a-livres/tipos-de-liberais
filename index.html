@@ -193,244 +193,199 @@ const thinkerImages = {
   "keynes": "data:image/jpeg;base64,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",
   "berlin": "data:image/jpeg;base64,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",
   "sen": "data:image/jpeg;base64,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",
+
+  "bastiat": "data:image/jpeg;base64,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",
+  "oakeshott": "data:image/jpeg;base64,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",
+  "burke": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDwwDHFOYHpRgMxPTnpT8c5rUkj2mp7e0uLgkQxM+OuBwKtaTppv7j58+Sp5x3PpXqWi6EtyyxxQqq+mMAVhVrKmtTanRczyiTTr2LJe3kAAyTjIxVccmvd7/wiyRltsbgLgAZFeL6nZyWWpzwSRlGRj8pHSpo4mNXYqrQdNXKXP4UKOKf2pproMAFMOd1PWjHNAESjnHvTs8YpP4uOtJ3zmmI6rRitvFCGMSLt3Els/p616R4Qv4biV2jk+4OcHrXiccjHBJzg9K9S8MhtMsURozHKVDEM2SQa87GRtDzPSwfvysdlfarqFxfpZRQIsTDLO4bp65HH4V5B4zlkm8QymWIRuo2EA9QDwa9UlvxFCr+cEdgcZXP6CvK/Ft+1/qoaRYxJGCrNHnDjPB56fSufAJ8+x0Y2KVO1zncYqPBzUtNNewjxhqjmnYApM4pCaYiFTkmk70sal2AA5q1DagHdIfwqZSSNKdKU3ZDbeJmbdj5RXq2l3KeI9CjeKRY9WsECsCcCVexz2H8j9a82UoGYLxV2w1CbTbqO7t5AsiHoejDuDXHW989KlRUI6HWnxctossF1CSy5V0IwQfb1rhb+5+2Xss4TYrtlUznaPSuu1m3tdV8PNqNtte5DLIw3cqMcj1NcS4wxA5xVYeEFdxWpzYidSStLYZSE54oNIT0rrRxjejU3jOKUnmmnrTEOhYRHOMmpfNO361XHNKCelYNXO6nVUVZFrdkZ754NBDMvzHgdhUAYjjtUqSEN04qLNG6lGTszo/DciNbX9kzAF4/MjznkjqP8+lc/Iu3PHzZNWLCV1vF2dWyo98jFVZJTubeMPk5470QumRNK5CaQmnkbhioiCDiulHnyVmHU03vQc80mSBn0pkjUOKlUjPNVwakU1BdybA9aXn61GTxQrcdaXKWqjRPHIyMCDhgcg0s0hmneVhy7FjUSmhqSiVKq2h+4dqRl+XeD9RTM09SQDVoxZCWwTxTGJx9ameIYyDUDDFUSf//Z",
+  "tocqueville": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDz2YfuT9KLY/uh9KkuB+6bn+GmW6nyga5CiSQDKY75/lVl7qGytHnmYhFPYZJPpVaQcp+P8qqa8r/2ap6xCT5x+HFTa7SHfQntL/WNVnCadpUjoRlTsLZHrnpWmkl3bagLDUbRraZ13Rl+PM9cA813fhu5vLbQIYYrVN0cKeWGyuRjnIB/wriPiTcTLf6bduDbzmJzgg/wtx/OsY1OefLY3nS5I81yz5JHalKYyaltC81lBLIuJHjVmGOhIqVouOlNGRSKcVSjXlxn+I1pSYVSo61nxj55PqcUwKE4zGfpilgXEK0jsCD9DSo2IlFakDpAN8f4/wAqupBFc2ximjDxnGVNZxb97Hntn+VXTfW1nAXmlVPYnk/Qd6Tv0GjsfD19LH5SSSFWgiVCjsACBna2DyQVPb0rB8U6vp+oeKrS3u0DCJcRllBBYkYz6DiuDutXvb+73G4YRqT5Svg+WvoPSmxKfPVxncCGyeefWpjhrS5mzSdfmjax6YBnk8VFNIcYHFZdj4ns7sCO4/0ebH8R+Vj7Ht+NXnkDDIIIPcVHK46Mm9yJuSBVZFIaTvyatHqD7VChGJfxpoDn5JcHBBAz1PSnLIVUbqhZ42TC9M85PJFRlz36dBitSCSS4xKpPQA1g3U5ubySUk4z8v07VdupCgZs8AfrWUv38VrTXUlsswlXYAE4GMg1eiVmkw/AHU+tUVJLBgD+HU1ejdQvUfiCKpiGzkeeI8Dhea2tAvGDtaOxK4ygPb1Fc7cSZu1PqAP1rQ05wNTi5weefwqJr3Rrc6yWbYBhSfcdqihkXDfNnPI/rTQ6LyX3HHGTQhDRsVGFIz+lcqNjniyAcAConkyCKjMyY6n8qI0M7ARqTnvjiujbcz3Kt2+Y1X1Oaz2OJM+9WLrIuGRvlK8YqvjL9c1tFaEPcuRNgDaBz0zU5l2jBwPolVFyvfI9KV3JHWgBHYNOjZJ5q/ZH/T7cn++ARVHcotsEfP5oOfbFXLKRRdwseCHFKWzGtzqfJi7oKmDDymUDAx2qkLy34+Zv++aHvofKcAnof4TXFqbGDbxC6mEKDaxBOW6ADmryiG3QxJIx3dcDOe/SqdmrLa+bjLSsUjPpjGT+taCxeShGBkDNXUlrYlS5Vdbm54Nithf3Nw0jfaWbDADBVew+h9P8Kj8X6LA8sjWkUaeY3mgIuOcDOAPXjp61gWmpSaVftMATuUZAraXUm1Cya6IeONMIisB1zjIP0OD9BWM1OM+dPQ3jOEqdnucO6PFM0cgww60Accn8zWp4jt2t9TQFcbo1bPrWUTxXfCXNFSOWS5W0Ixy6gdPSr1kc30W4FlGeB9KoA/vR7Cr9gxWZnC5KjFOewlubWbf/AJ4v+RoZrdY2AibOD2NVjdN0K7R609nBjY5/hP8AKuWxqf/Z",
 };
 
 const thinkerKeys = {
   "John Stuart Mill": "mill",
   "John Rawls": "rawls",
-  "Milton Friedman": "friedman",
-  "Friedrich Hayek": "hayek",
   "Martha Nussbaum": "nussbaum",
-  "Ludwig von Mises": "mises",
-  "Ayn Rand": "rand",
-  "Robert Nozick": "nozick",
-  "Amartya Sen": "sen",
-  "John Maynard Keynes": "keynes",
-  "William Beveridge": "beveridge",
-  "Isaiah Berlin": "berlin",
+  "Edmund Burke": "burke",
+  "Alexis de Tocqueville": "tocqueville",
+  "Michael Oakeshott": "oakeshott",
+  "Frédéric Bastiat": "bastiat",
+  "Friedrich Hayek": "hayek",
+  "Milton Friedman": "friedman",
 };
 
 // Perfis: A=Liberal Social, B=Liberal Conservador, C=Neoliberal, D=Minarquista
 // Cada opção tem scores para cada perfil: [A, B, C, D]
 const questions = [
   {
-    text: "O que torna uma pessoa verdadeiramente livre?",
+    text: "Qual deve ser o papel do Estado na economia?",
     options: [
-      { text: "Ter direitos civis, saúde e educação garantidos: sem condições materiais mínimas, a liberdade é apenas formal.", scores: [4,2,0,0,0] },
-      { text: "Ter direitos, mas também acesso real a propriedade, trabalho digno e poder econômico: não apenas benefícios do Estado.", scores: [2,4,0,0,0] },
-      { text: "Viver numa sociedade com instituições sólidas, ordem e respeito às tradições que sustentam a convivência.", scores: [0,0,4,0,0] },
-      { text: "Poder empreender e competir num mercado aberto, sem burocracia nem interferência estatal excessiva.", scores: [0,0,1,4,1] },
-      { text: "Ter vida, liberdade e propriedade plenamente protegidas, com Estado restrito a essas funções.", scores: [0,0,0,1,4] }
+      { text: "Regular ativamente o mercado, redistribuir renda e garantir serviços públicos abrangentes para reduzir desigualdades.", scores: [4,0,0] },
+      { text: "Garantir regras do jogo claras, proteger a concorrência e preservar instituições sólidas, sem expansão excessiva.", scores: [1,4,0] },
+      { text: "Limitar-se a proteger contratos e propriedade privada, deixando o resto para o mercado e a cooperação voluntária.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Qual é o maior problema de uma sociedade com desigualdade econômica extrema?",
+    text: "O que você pensa sobre desigualdade econômica?",
     options: [
-      { text: "As pessoas mais pobres não têm acesso a serviços básicos e oportunidades reais: o Estado deve compensar isso.", scores: [4,2,0,0,0] },
-      { text: "A concentração de riqueza se converte em concentração de poder político, corrompendo a própria democracia.", scores: [2,4,0,0,0] },
-      { text: "A instabilidade social que pode comprometer a ordem, a família e as instituições que sustentam a liberdade.", scores: [0,0,4,0,0] },
-      { text: "Pode indicar falhas de concorrência: o remédio é mais mercado, não mais Estado.", scores: [0,0,0,4,1] },
-      { text: "Só é problema se resultou de coerção estatal; desigualdade oriunda de escolhas livres é legítima.", scores: [0,0,0,1,4] }
+      { text: "É uma injustiça estrutural que o Estado deve combater ativamente com políticas redistributivas e sociais.", scores: [4,0,0] },
+      { text: "É natural em certa medida, mas deve ser moderada por instituições e por uma cultura de responsabilidade e solidariedade.", scores: [1,4,0] },
+      { text: "É legítima se resultado de escolhas livres e não de coerção estatal. Soluções voluntárias são preferíveis à intervenção.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Imagine que você não sabe em qual família vai nascer. Que tipo de sociedade você escolheria?",
+    text: "Como você vê a liberdade individual?",
     options: [
-      { text: "Com Estado de bem-estar social forte: saúde universal, educação pública e redes de proteção para todos.", scores: [4,2,0,0,0] },
-      { text: "Com propriedade e capital amplamente distribuídos, para que ninguém dependa de empregadores ou do Estado para sobreviver.", scores: [2,4,0,0,0] },
-      { text: "Com instituições estáveis, valores tradicionais e economia de mercado que recompense esforço e mérito.", scores: [0,0,4,0,0] },
-      { text: "Com mercados livres e competitivos, que criam mais mobilidade que qualquer redistribuição planejada.", scores: [0,0,1,4,0] },
-      { text: "Com Estado mínimo e liberdade máxima: a prosperidade vem da iniciativa individual, não de redistribuições.", scores: [0,0,0,1,4] }
+      { text: "Liberdade real exige condições materiais: sem saúde, educação e renda mínima, a liberdade formal é vazia.", scores: [4,0,0] },
+      { text: "A liberdade floresce dentro de instituições sólidas e tradições que protegem o indivíduo da tirania do Estado e da maioria.", scores: [1,4,0] },
+      { text: "A liberdade negativa é o valor central: o Estado não deve interferir na vida pessoal nem econômica dos indivíduos.", scores: [0,0,4] }
     ]
   },
   {
-    text: "Como o Estado deve lidar com a pobreza e a exclusão social?",
+    text: "Sobre direitos sociais como saúde e educação:",
     options: [
-      { text: "Com políticas robustas de saúde, educação, previdência e transferência de renda para garantir piso mínimo de dignidade.", scores: [4,2,0,0,0] },
-      { text: "Além de serviços públicos, democratizando o acesso à propriedade, ao crédito e à participação econômica.", scores: [2,4,0,0,0] },
-      { text: "Com cautela: programas sociais são necessários, mas não devem criar dependência ou desincentivar o trabalho.", scores: [1,0,4,1,0] },
-      { text: "Focalizando recursos nos mais pobres e deixando o mercado gerar crescimento para os demais.", scores: [0,0,1,4,1] },
-      { text: "Deixando para a iniciativa privada, caridade e soluções voluntárias: o Estado não deve monopolizar o socorro social.", scores: [0,0,0,1,4] }
+      { text: "Devem ser universais, públicos e garantidos pelo Estado como direitos fundamentais.", scores: [4,0,0] },
+      { text: "O Estado deve garantir um piso mínimo, mas sem monopolizar esses serviços nem criar dependência excessiva.", scores: [1,4,1] },
+      { text: "Devem ser providos pelo mercado e por instituições voluntárias, com liberdade de escolha para cada indivíduo.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Qual é a sua posição sobre tributação progressiva e impostos sobre grandes fortunas?",
+    text: "Como você avalia mudanças sociais e reformas?",
     options: [
-      { text: "São necessários para financiar serviços públicos e reduzir desigualdades que comprometem a liberdade real.", scores: [4,2,0,0,0] },
-      { text: "São importantes, mas o objetivo não é só redistribuir renda: é evitar concentração de poder econômico e político.", scores: [2,4,0,0,0] },
-      { text: "Razoáveis em níveis moderados, com responsabilidade fiscal e sem desincentivar trabalho e investimento.", scores: [1,0,4,1,0] },
-      { text: "Devem ser baixos e simples: impostos altos travam crescimento, inovação e competitividade.", scores: [0,0,1,4,1] },
-      { text: "São formas de coerção: o Estado não tem direito de tomar renda além do mínimo para funções básicas.", scores: [0,0,0,1,4] }
+      { text: "Reformas profundas e rápidas são necessárias para avançar direitos e reduzir injustiças históricas.", scores: [4,0,0] },
+      { text: "Mudanças devem ser graduais e prudentes, respeitando tradições e instituições que sustentam a ordem social.", scores: [0,4,0] },
+      { text: "O Estado não deve liderar reformas sociais. Transformações legítimas emergem da sociedade civil e do mercado.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Como você enxerga o papel da educação pública?",
+    text: "Qual é a sua posição sobre cooperação internacional?",
     options: [
-      { text: "Deve ser universal, gratuita e de qualidade: é a base da igualdade de oportunidades e da mobilidade social.", scores: [4,2,0,0,0] },
-      { text: "Além de universal, deve capacitar para participação econômica e democrática plena, não apenas preparar para o mercado de trabalho.", scores: [2,4,0,0,0] },
-      { text: "É importante, mas deve preservar valores familiares e culturais, sem que o Estado imponha uma visão única às crianças.", scores: [0,0,4,0,0] },
-      { text: "Deve competir com escolas privadas e charters: concorrência melhora qualidade e eficiência.", scores: [0,0,1,4,1] },
-      { text: "Deveria ser entregue às famílias e ao mercado: o Estado não deve ter monopólio sobre a formação das crianças.", scores: [0,0,0,1,4] }
+      { text: "A cooperação internacional é essencial para enfrentar desigualdades globais, mudanças climáticas e crises humanitárias.", scores: [4,0,0] },
+      { text: "A cooperação é bem-vinda, mas os interesses e a soberania nacionais devem sempre ter peso relevante nas decisões.", scores: [0,4,0] },
+      { text: "Organismos supranacionais tendem a ampliar o poder estatal. A cooperação deve ser voluntária e descentralizada.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Sobre a concentração de riqueza nas mãos de poucos indivíduos ou corporações:",
+    text: "O que você pensa sobre tributação?",
     options: [
-      { text: "É um problema que o Estado deve combater com impostos progressivos, regulação e políticas sociais.", scores: [4,1,0,0,0] },
-      { text: "É incompatível com democracia real: concentração econômica se converte em poder político e captura institucional.", scores: [2,4,0,0,0] },
-      { text: "É natural em mercados competitivos; o que importa é garantir regras justas e mobilidade econômica.", scores: [0,0,1,4,1] },
-      { text: "Só é problema se resultou de privilégios ou monopólios concedidos pelo Estado: a solução é menos intervenção.", scores: [0,0,0,2,4] },
-      { text: "É preocupante para a estabilidade social; instituições tradicionais e regulação moderada podem contê-la.", scores: [1,0,4,0,0] }
+      { text: "Impostos progressivos são necessários para financiar serviços públicos e reduzir desigualdades.", scores: [4,0,0] },
+      { text: "Tributação deve ser moderada, previsível e orientada à responsabilidade fiscal, sem onerar excessivamente a economia.", scores: [1,4,0] },
+      { text: "A tributação deve ser mínima. O Estado não tem o direito de tomar a renda dos indivíduos além do estritamente necessário.", scores: [0,1,4] }
     ]
   },
   {
-    text: "O que você pensa sobre trabalhadores terem participação na gestão e nos lucros das empresas?",
+    text: "Como você vê as tradições e os valores culturais na vida pública?",
     options: [
-      { text: "É positivo como política pública para reduzir desigualdades e melhorar condições de trabalho.", scores: [4,2,0,0,0] },
-      { text: "É fundamental: democracia no local de trabalho é parte essencial de uma sociedade verdadeiramente livre e igualitária.", scores: [1,4,0,0,0] },
-      { text: "Pode ser bem-vindo quando surge voluntariamente, mas não deve ser imposto pelo Estado às empresas.", scores: [0,0,4,1,0] },
-      { text: "Deve ser deixado para o mercado: empresas que adotam esse modelo competem com as que não adotam.", scores: [0,0,1,4,1] },
-      { text: "É uma questão contratual privada entre trabalhadores e empregadores, sem papel para o Estado.", scores: [0,0,0,1,4] }
+      { text: "A esfera pública deve ser laica e plural. Tradições não devem limitar direitos individuais nem pautar políticas.", scores: [4,0,0] },
+      { text: "Tradições e valores culturais são parte essencial da coesão social e merecem respeito e preservação.", scores: [0,4,0] },
+      { text: "Tradições são escolhas individuais. O Estado não deve nem promover nem restringir nenhuma prática ou crença.", scores: [1,1,4] }
     ]
   },
   {
-    text: "Qual deve ser o papel do Estado na área da saúde?",
+    text: "Sobre democracia e participação política:",
     options: [
-      { text: "Garantir saúde universal e gratuita: sem ela, a liberdade é apenas formal para quem adoece.", scores: [4,2,0,0,0] },
-      { text: "Universal e público, com acesso igualitário independente de renda ou condição: saúde não pode ser mercadoria.", scores: [2,4,0,0,0] },
-      { text: "Oferecer rede básica pública, com espaço para o setor privado complementar sem substituir.", scores: [1,0,4,1,0] },
-      { text: "Estimular concorrência privada, com cobertura estatal focalizada nos mais pobres.", scores: [0,0,1,4,1] },
-      { text: "Deixar para o mercado e à caridade voluntária: o Estado não deve monopolizar esse setor.", scores: [0,0,0,1,4] }
+      { text: "A democracia deve ser expandida e aprofundada, com mais participação popular e representação de minorias.", scores: [4,0,0] },
+      { text: "A democracia representativa é valiosa, mas deve ter freios contra a tirania da maioria e o populismo.", scores: [0,4,0] },
+      { text: "A democracia não deve ultrapassar os limites dos direitos individuais. Decisões coletivas não podem violar liberdades.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Sobre renda básica universal: transferência incondicional de renda a todos os cidadãos:",
+    text: "Qual é a sua visão sobre segurança pública?",
     options: [
-      { text: "É uma política interessante para garantir piso mínimo de dignidade e reduzir burocracia assistencial.", scores: [4,2,0,0,0] },
-      { text: "É uma das formas de dar a todos uma base econômica que permita liberdade real, sem depender de patrões ou do Estado.", scores: [2,4,0,0,0] },
-      { text: "É arriscada: pode desincentivar o trabalho, gerar desequilíbrio fiscal e enfraquecer a responsabilidade individual.", scores: [0,0,4,1,0] },
-      { text: "Poderia substituir com eficiência o emaranhado de programas sociais existentes, desde que bem calibrada.", scores: [1,0,0,4,0] },
-      { text: "Só seria aceitável se financiada sem coerção: por contribuições voluntárias ou dividendos de recursos comuns.", scores: [0,0,0,1,4] }
+      { text: "O combate ao crime deve priorizar prevenção social, educação e redução da desigualdade como causas estruturais.", scores: [4,0,0] },
+      { text: "Segurança depende de leis claras, polícia eficiente e instituições estáveis. A ordem é condição da liberdade.", scores: [0,4,0] },
+      { text: "O indivíduo tem amplo direito à autodefesa. O monopólio estatal da força deve ser questionado e limitado.", scores: [0,0,4] }
     ]
   },
   {
-    text: "Como você vê a regulação de mercados e empresas?",
+    text: "Sobre direitos civis e pautas progressistas:",
     options: [
-      { text: "Mercados precisam ser regulados para evitar abusos, monopólios, degradação ambiental e exploração trabalhista.", scores: [4,2,0,0,0] },
-      { text: "Regulação é necessária, mas insuficiente: estruturas de mercado injustas precisam ser reformadas, não apenas corrigidas.", scores: [1,4,0,0,0] },
-      { text: "Necessária para garantir ordem e concorrência justa, sem ser excessiva a ponto de travar o empreendedorismo.", scores: [1,0,4,1,0] },
-      { text: "Excesso de regulação é o principal obstáculo ao crescimento: menos burocracia e mais mercado.", scores: [0,0,1,4,1] },
-      { text: "Contratos e direitos de propriedade bem definidos bastam; regulação estatal cria mais problemas do que resolve.", scores: [0,0,0,1,4] }
+      { text: "O Estado deve ampliar e garantir ativamente direitos civis, combatendo discriminações e promovendo igualdade.", scores: [4,0,0] },
+      { text: "Direitos individuais devem ser protegidos, mas mudanças muito rápidas nos costumes podem criar instabilidade social.", scores: [0,4,0] },
+      { text: "Cada indivíduo deve ter plena liberdade sobre sua vida. O Estado não tem papel em regular comportamentos pessoais.", scores: [1,0,4] }
     ]
   },
   {
-    text: "Qual é o papel legítimo da tradição e da religião na vida pública?",
+    text: "Como você avalia privatizações de serviços públicos?",
     options: [
-      { text: "A esfera pública deve ser laica e plural: religião é assunto privado e não deve pautar leis nem políticas.", scores: [4,2,0,0,0] },
-      { text: "Tradição e religião sustentam valores morais e coesão social: devem ter espaço respeitado na vida pública.", scores: [0,0,4,0,0] },
-      { text: "São questões privadas que não devem interferir nos mercados nem na liberdade econômica.", scores: [0,0,1,4,0] },
-      { text: "Cada indivíduo decide livremente; o Estado não deve nem promover nem restringir crenças ou práticas.", scores: [1,1,0,1,4] }
+      { text: "Com muita cautela: privatizar saúde, educação e saneamento pode excluir quem não tem renda suficiente.", scores: [4,0,0] },
+      { text: "Caso a caso: setores estratégicos podem permanecer públicos, mas a iniciativa privada é mais eficiente em muitos casos.", scores: [0,4,0] },
+      { text: "Em geral positivas: o mercado aloca recursos melhor que monopólios estatais. O Estado deve ser mínimo.", scores: [0,0,4] }
     ]
   },
   {
-    text: "Sobre privatizações de serviços públicos essenciais:",
+    text: "O que você pensa sobre regulação de empresas e mercados?",
     options: [
-      { text: "Com muita cautela: privatizar saúde, educação e saneamento pode excluir quem não pode pagar.", scores: [4,1,0,0,0] },
-      { text: "Serviços essenciais devem ser democraticamente controlados: não pelo Estado burocrático, nem por corporações privadas.", scores: [1,4,0,0,0] },
-      { text: "Caso a caso: alguns setores estratégicos devem ser públicos; outros funcionam melhor na iniciativa privada.", scores: [1,0,4,1,0] },
-      { text: "Em geral positivas: a iniciativa privada é mais eficiente e inovadora do que monopólios estatais.", scores: [0,0,1,4,1] },
-      { text: "Amplamente desejáveis: o Estado não deveria operar empresas nem serviços que o mercado pode prover.", scores: [0,0,0,1,4] }
+      { text: "Mercados precisam ser regulados para evitar monopólios, abusos e externalidades negativas como a degradação ambiental.", scores: [4,0,0] },
+      { text: "Regulação é necessária para garantir concorrência justa e estabilidade, mas não deve ser excessiva ou burocrática.", scores: [1,4,0] },
+      { text: "A maioria das regulações atrapalha mais do que ajuda. Contratos e direitos de propriedade bem definidos bastam.", scores: [0,0,4] }
     ]
   },
   {
-    text: "O que você pensa sobre fortalecimento sindical e direitos trabalhistas?",
+    text: "Sobre o livre comércio e a abertura econômica:",
     options: [
-      { text: "São conquistas importantes para proteger trabalhadores das assimetrias de poder no mercado de trabalho.", scores: [4,2,0,0,0] },
-      { text: "São fundamentais: sindicatos fortes e direitos trabalhistas sólidos são parte da democracia econômica.", scores: [2,4,0,0,0] },
-      { text: "São necessários para garantir estabilidade social e valorizar o trabalho, desde que não enrijeçam excessivamente a economia.", scores: [1,0,4,0,0] },
-      { text: "Direitos trabalhistas excessivos encarecem contratações e prejudicam o dinamismo econômico.", scores: [0,0,1,4,1] },
-      { text: "São assuntos contratuais entre partes: o Estado não deve impor condições além das acordadas voluntariamente.", scores: [0,0,0,1,4] }
+      { text: "O comércio é positivo, mas deve vir acompanhado de proteções sociais para os trabalhadores afetados.", scores: [4,0,0] },
+      { text: "O livre comércio é importante, mas a soberania econômica e setores estratégicos nacionais merecem proteção.", scores: [0,4,0] },
+      { text: "Fronteiras comerciais são formas de coerção. Pessoas e mercadorias devem circular livremente.", scores: [0,0,4] }
     ]
   },
   {
-    text: "Qual das frases abaixo mais se aproxima da sua visão sobre liberdade e igualdade?",
+    text: "Qual frase mais se aproxima da sua visão sobre Estado e liberdade?",
     options: [
-      { text: "Liberdade sem condições materiais mínimas é privilégio de poucos. O Estado deve corrigir essas desigualdades.", scores: [4,1,0,0,0] },
-      { text: "Não basta redistribuir: é preciso reformar as estruturas que concentram riqueza e poder antes que o dano aconteça.", scores: [1,4,0,0,0] },
-      { text: "A liberdade floresce em sociedades com instituições sólidas, valores compartilhados e mudanças graduais.", scores: [0,0,4,0,0] },
-      { text: "A liberdade econômica é a base de todas as outras: quando o Estado controla a economia, controla as pessoas.", scores: [0,0,1,4,1] },
-      { text: "O Estado mínimo é a única forma de governo compatível com o pleno respeito aos direitos individuais.", scores: [0,0,0,1,4] }
+      { text: "Liberdade sem igualdade de condições é privilégio de poucos. O Estado deve garantir oportunidades reais para todos.", scores: [4,0,0] },
+      { text: "A liberdade duradoura depende de instituições sólidas, tradições respeitadas e mudanças graduais e responsáveis.", scores: [0,4,0] },
+      { text: "Quanto menos Estado, mais liberdade. O poder estatal deve ser minimizado para que o indivíduo possa florescer.", scores: [0,0,4] }
     ]
   }
 ];
 
 
 
+
+
 const results = {
   A: {
     title: "Liberal Social",
-    subtitle: "Progressismo e Liberdade",
-    desc: "Você defende economia de mercado com intervenção estatal para corrigir desigualdades depois que elas surgem. Acredita que saúde pública, educação universal, previdência e redistributivismo são instrumentos legítimos para garantir um piso mínimo de dignidade e igualdade de oportunidades: sem alterar profundamente a estrutura do capitalismo.",
-    tags: ["Welfare State", "Saúde universal", "Educação pública", "Redistribuição de renda", "Igualdade de oportunidades"],
+    subtitle: "Progressista e Cosmopolita",
+    desc: "Você defende uma economia de mercado com regulações e programas sociais abrangentes para mitigar desigualdades. Acredita que a liberdade real exige condições materiais mínimas e que o Estado tem papel legítimo em garantir saúde, educação e direitos civis expandidos. Apoia pautas progressistas e cooperação internacional democrática.",
+    tags: ["Welfare state", "Direitos civis", "Regulação de mercados", "Progressismo", "Cooperação internacional"],
     thinkers: [
-      { name: "John Maynard Keynes", desc: "Economista britânico que defendeu a intervenção estatal para estabilizar economias e sustentar o pleno emprego." },
-      { name: "William Beveridge", desc: "Arquiteto do Estado de bem-estar social britânico, formulou o sistema de seguridade social universal pós-guerra." },
-      { name: "Isaiah Berlin", desc: "Filósofo que distinguiu liberdade negativa e positiva, defendendo pluralismo e proteção contra dominação." }
+      { name: "John Rawls", desc: "Formulou a teoria da justiça como equidade, defendendo que desigualdades só são aceitáveis se beneficiam os menos favorecidos." },
+      { name: "John Stuart Mill", desc: "Defensor da liberdade individual e da autonomia como princípio central da vida pública e da democracia." },
+      { name: "Martha Nussbaum", desc: "Desenvolveu a abordagem das capacidades, colocando a dignidade humana e o florescimento no centro da política." }
     ]
   },
   B: {
-    title: "Liberal Igualitário",
-    subtitle: "Radicalmente Democrático",
-    desc: "Você vai além do welfare state: acredita que corrigir desigualdades depois que surgem é insuficiente. A própria estrutura econômica pode concentrar riqueza e poder de forma incompatível com democracia real. Por isso defende reformas estruturais: dispersão de propriedade, democracia no local de trabalho, renda básica e limites à concentração econômica: para evitar que desigualdades extremas se consolidem.",
-    tags: ["Democracia econômica", "Dispersão de propriedade", "Democracia no trabalho", "Renda básica", "Reforma estrutural"],
-    thinkers: [
-      { name: "John Rawls", desc: "Formulou a teoria da justiça como equidade e a democracia de proprietários como alternativa ao simples welfare state." },
-      { name: "Martha Nussbaum", desc: "Desenvolveu a abordagem das capacidades, colocando a dignidade humana e o florescimento no centro da política." },
-      { name: "Amartya Sen", desc: "Economista e filósofo que redefiniu desenvolvimento como expansão de liberdades reais e capacidades humanas." }
-    ]
-  },
-  C: {
     title: "Liberal Conservador",
-    subtitle: "Ordem e Liberdade",
-    desc: "Você valoriza a liberdade dentro de instituições sólidas e tradições testadas pelo tempo. Defende Estado de direito, democracia representativa, responsabilidade fiscal e livre mercado: com prudência nas reformas e atenção à estabilidade social e cultural.",
-    tags: ["Estado de direito", "Responsabilidade fiscal", "Livre mercado", "Tradição", "Mudança gradual"],
+    subtitle: "Ordem, Tradição e Liberdade",
+    desc: "Você defende uma economia de livre mercado combinada com uma organização social próxima ao comunitarismo. Valoriza instituições sólidas, tradições e mudanças graduais. É cético quanto ao poder transformador do Estado e atento à tirania da maioria. Mantém vínculos nacionais sem negar a cooperação internacional.",
+    tags: ["Livre mercado", "Instituições sólidas", "Prudência", "Comunitarismo", "Soberania nacional"],
     thinkers: [
-      { name: "Edmund Burke", desc: "Pai do conservadorismo moderno, defendeu as tradições e instituições como guardiãs da liberdade contra o radicalismo." },
+      { name: "Edmund Burke", desc: "Pai do conservadorismo moderno, defendeu tradições e instituições como guardiãs da liberdade contra o radicalismo." },
+      { name: "Alexis de Tocqueville", desc: "Analisou os riscos da tirania da maioria e a importância das instituições intermediárias para a liberdade democrática." },
       { name: "Michael Oakeshott", desc: "Filósofo britânico que valorizou a política como arte do possível, avesso a projetos racionais abstratos." }
     ]
   },
-  D: {
-    title: "Neoliberal",
-    subtitle: "Mercados e eficiência",
-    desc: "Você prioriza mercados competitivos, abertura econômica, controle fiscal rígido e redução do tamanho do Estado. Acredita que a eficiência do mercado supera a intervenção estatal na maioria dos domínios e que o crescimento econômico é o melhor caminho para o bem-estar coletivo.",
-    tags: ["Mercados competitivos", "Abertura econômica", "Controle fiscal", "Privatizações", "Eficiência de mercado"],
+  C: {
+    title: "Libertário",
+    subtitle: "Laissez-faire e Liberdade Individual",
+    desc: "Você defende uma economia laissez-faire com forte ceticismo à atuação do Estado para promover liberdade ou igualdade. Prioriza liberdades negativas e individuais, entendendo que o Estado não deve interferir na vida pessoal nem econômica. Prefere soluções voluntárias e de mercado ao combate às desigualdades.",
+    tags: ["Laissez-faire", "Liberdade negativa", "Estado mínimo", "Voluntarismo", "Propriedade privada"],
     thinkers: [
+      { name: "Frédéric Bastiat", desc: "Economista liberal francês que defendeu o livre mercado, criticou o protecionismo e alertou para os efeitos invisíveis da intervenção estatal." },
       { name: "Friedrich Hayek", desc: "Argumentou que o sistema de preços carrega mais informação do que qualquer planejador central poderia processar." },
-      { name: "Milton Friedman", desc: "Pai do monetarismo moderno, defensor de mercados livres, vouchers escolares e regras monetárias claras." }
-    ]
-  },
-  E: {
-    title: "Minarquista",
-    subtitle: "Libertário",
-    desc: "Você defende o Estado mínimo, limitado à proteção de contratos, propriedade privada e segurança individual. Acredita que qualquer expansão além dessas funções representa uma violação da liberdade individual: e que o mercado e a cooperação voluntária resolvem o que o Estado pretende resolver pela coerção.",
-    tags: ["Estado mínimo", "Propriedade privada", "Livre mercado irrestrito", "Liberdades civis", "Voluntarismo"],
-    thinkers: [
-      { name: "Robert Nozick", desc: "Defendeu o Estado mínimo como único compatível com os direitos individuais, em contraponto a Rawls." },
-      { name: "Ludwig von Mises", desc: "Pilar da Escola Austríaca, argumentou pela impossibilidade do cálculo econômico racional sob o socialismo." },
-      { name: "Ayn Rand", desc: "Filósofa do objetivismo, celebrou o individualismo racional e o capitalismo laissez-faire como expressão máxima da liberdade." }
+      { name: "Milton Friedman", desc: "Pai do monetarismo moderno, defensor de mercados livres, vouchers escolares e mínima intervenção do Estado." }
     ]
   }
 };
 
-const scoreLabels = { A: "Liberal Social", B: "Liberal Igualitário", C: "Liberal Conservador", D: "Neoliberal", E: "Minarquista" };
+const scoreLabels = { A: "Liberal Social", B: "Liberal Conservador", C: "Libertário" };
 
 // Embaralhar perguntas e opções
 questions.sort(() => Math.random() - 0.5);
 questions.forEach(q => q.options.sort(() => Math.random() - 0.5));
 
-const LETTERS = ["A","B","C","D","E"];
+const LETTERS = ["A","B","C"];
 let current = 0;
-let scores = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+let scores = { A: 0, B: 0, C: 0 };
 let winnerKey = null;
 
 function loadQuestion() {
@@ -459,8 +414,6 @@ function selectOption(btn, optScores) {
   scores.A += optScores[0];
   scores.B += optScores[1];
   scores.C += optScores[2];
-  scores.D += optScores[3];
-  scores.E += (optScores[4] || 0);
   setTimeout(function() {
     current++;
     if (current < questions.length) loadQuestion();
