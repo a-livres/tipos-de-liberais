@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz Liberal: Livres</title>
+<title>Quiz Liberal — Livres</title>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,59 +11,29 @@
     --purple: #640b9b; --teal: #00b99f; --light: #efefef; --dark: #000000;
     --purple-light: #7d12c0; --purple-dim: rgba(100,11,155,0.08); --teal-dim: rgba(0,185,159,0.12);
   }
-  body {
-    font-family: "Figtree", sans-serif; background: var(--light);
-    min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; padding: 32px 16px;
-  }
-  body::before, body::after {
-    content: ""; position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 0;
-  }
+  body { font-family: "Figtree", sans-serif; background: var(--light); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 16px; }
+  body::before, body::after { content: ""; position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 0; }
   body::before { width: 420px; height: 420px; background: rgba(100,11,155,0.13); top: -80px; left: -120px; }
   body::after  { width: 360px; height: 360px; background: rgba(0,185,159,0.13); bottom: -60px; right: -100px; }
-
-  #quiz-container {
-    position: relative; z-index: 1; background: #fff; width: 100%; max-width: 800px;
-    border-radius: 24px; padding: 48px 52px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 16px 48px rgba(100,11,155,0.10); overflow: hidden;
-  }
-  #quiz-container::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
-    background: linear-gradient(90deg, var(--purple) 0%, var(--teal) 100%);
-  }
+  #quiz-container { position: relative; z-index: 1; background: #fff; width: 100%; max-width: 800px; border-radius: 24px; padding: 48px 52px; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 16px 48px rgba(100,11,155,0.10); overflow: hidden; }
+  #quiz-container::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--purple) 0%, var(--teal) 100%); }
   .quiz-header { text-align: center; margin-bottom: 36px; }
   .quiz-eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
   h1 { font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 900; color: var(--dark); line-height: 1.2; }
   h1 span { color: var(--purple); }
-
   .progress-wrap { margin-bottom: 32px; }
   .progress-meta { display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 600; color: #888; margin-bottom: 8px; }
   .progress-bar { width: 100%; height: 8px; background: var(--light); border-radius: 99px; overflow: hidden; }
   #progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--purple), var(--teal)); border-radius: 99px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
-
   .question-number { font-size: 0.78rem; font-weight: 700; color: var(--purple); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
   #question-text { font-size: 1.18rem; font-weight: 700; color: var(--dark); line-height: 1.45; margin-bottom: 24px; }
-
   .options { display: flex; flex-direction: column; gap: 11px; }
-  .option-btn {
-    display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px;
-    border: 2px solid #e0e0e0; background: #fff; color: var(--dark);
-    border-radius: 14px; font-family: "Figtree", sans-serif; font-size: 0.93rem;
-    font-weight: 500; cursor: pointer; text-align: left;
-    transition: border-color 0.18s, background 0.18s, transform 0.18s, box-shadow 0.18s; line-height: 1.45;
-  }
-  .option-letter {
-    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--purple-dim); color: var(--purple); font-size: 0.78rem; font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.18s, color 0.18s; margin-top: 1px;
-  }
+  .option-btn { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px; border: 2px solid #e0e0e0; background: #fff; color: var(--dark); border-radius: 14px; font-family: "Figtree", sans-serif; font-size: 0.93rem; font-weight: 500; cursor: pointer; text-align: left; transition: border-color 0.18s, background 0.18s, transform 0.18s, box-shadow 0.18s; line-height: 1.45; }
+  .option-letter { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--purple-dim); color: var(--purple); font-size: 0.78rem; font-weight: 800; display: flex; align-items: center; justify-content: center; transition: background 0.18s, color 0.18s; margin-top: 1px; }
   .option-btn:hover { border-color: var(--purple); background: var(--purple-dim); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(100,11,155,0.10); }
   .option-btn:hover .option-letter { background: var(--purple); color: #fff; }
   .option-btn.selected { border-color: var(--teal); background: var(--teal-dim); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,185,159,0.12); pointer-events: none; }
   .option-btn.selected .option-letter { background: var(--teal); color: #fff; }
-
-  /* Email gate */
   #email-gate { display: none; text-align: center; animation: fadeUp 0.5s ease both; }
   .email-icon { width: 68px; height: 68px; background: var(--purple-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2rem; }
   .email-gate-title { font-size: 1.55rem; font-weight: 900; color: var(--dark); margin-bottom: 10px; }
@@ -81,8 +51,6 @@
   .email-status.fail { color: #e53935; }
   .email-skip { display: inline-block; margin-top: 16px; font-size: 0.82rem; color: #bbb; cursor: pointer; background: none; border: none; font-family: "Figtree", sans-serif; text-decoration: underline; }
   .email-skip:hover { color: #888; }
-
-  /* Result */
   #result { display: none; text-align: center; animation: fadeUp 0.5s ease both; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .result-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -93,39 +61,19 @@
   .result-desc { font-size: 1rem; line-height: 1.75; color: #444; max-width: 580px; margin: 0 auto 28px; }
   .result-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
   .tag { font-size: 0.78rem; font-weight: 600; padding: 5px 14px; border-radius: 99px; background: var(--light); color: #555; border: 1.5px solid #ddd; }
-
-  /* Score bars */
-  .scores-section { background: var(--light); border-radius: 16px; padding: 24px 28px; margin-bottom: 32px; text-align: left; }
-  .scores-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 16px; text-align: center; }
-  .score-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-  .score-label { font-size: 0.78rem; font-weight: 700; color: var(--dark); width: 140px; flex-shrink: 0; }
-  .score-track { flex: 1; height: 8px; background: #ddd; border-radius: 99px; overflow: hidden; }
-  .score-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--purple), var(--teal)); transition: width 0.9s cubic-bezier(.4,0,.2,1); }
-  .score-val { font-size: 0.78rem; font-weight: 700; color: #888; width: 28px; flex-shrink: 0; text-align: right; }
-
-  /* Thinkers */
   .thinkers-section { margin-bottom: 32px; text-align: left; }
   .thinkers-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 16px; text-align: center; }
   .thinker-card { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px; border-radius: 14px; background: var(--purple-dim); margin-bottom: 10px; }
   .thinker-avatar { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; color: #fff; overflow: hidden; }
   .thinker-name { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
   .thinker-desc { font-size: 0.82rem; color: #555; line-height: 1.5; }
-
   .restart-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border: none; background: linear-gradient(135deg, var(--purple) 0%, var(--purple-light) 100%); color: #fff; border-radius: 12px; font-family: "Figtree", sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; box-shadow: 0 4px 16px rgba(100,11,155,0.25); }
   .restart-btn:hover { opacity: 0.9; transform: translateY(-2px); }
-
-  @media (max-width: 600px) {
-    #quiz-container { padding: 36px 22px; }
-    .score-label { width: 100px; font-size: 0.7rem; }
-    .email-input-wrap { flex-direction: column; }
-    .email-submit-btn { width: 100%; }
-  }
+  @media (max-width: 600px) { #quiz-container { padding: 36px 22px; } .email-input-wrap { flex-direction: column; } .email-submit-btn { width: 100%; } }
 </style>
 </head>
 <body>
 <div id="quiz-container">
-
-  <!-- QUIZ -->
   <div id="quiz-ui">
     <div class="quiz-header">
       <div class="quiz-eyebrow">Livres · Associação Liberal</div>
@@ -133,7 +81,7 @@
     </div>
     <div class="progress-wrap">
       <div class="progress-meta">
-        <span id="progress-label">Pergunta 1 de 15</span>
+        <span id="progress-label">Pergunta 1 de 10</span>
         <span id="progress-pct">0%</span>
       </div>
       <div class="progress-bar"><div id="progress"></div></div>
@@ -142,8 +90,6 @@
     <div id="question-text"></div>
     <div id="options-container" class="options"></div>
   </div>
-
-  <!-- EMAIL GATE -->
   <div id="email-gate">
     <div class="email-icon">✉️</div>
     <div class="email-gate-title">Quase lá!</div>
@@ -156,8 +102,6 @@
     <div class="email-status" id="email-status"></div>
     <button class="email-skip" onclick="skipEmail()">Pular esta etapa</button>
   </div>
-
-  <!-- RESULTADO -->
   <div id="result">
     <div class="result-eyebrow">Livres · Resultado</div>
     <div class="result-badge">✦ Perfil identificado</div>
@@ -166,19 +110,15 @@
     <div class="result-divider"></div>
     <p id="result-desc" class="result-desc"></p>
     <div id="result-tags" class="result-tags"></div>
-
     <div class="thinkers-section">
       <div class="thinkers-title">Pensadores de referência</div>
       <div id="thinkers-list"></div>
     </div>
     <button class="restart-btn" onclick="location.reload()">↺ &nbsp;Refazer o quiz</button>
   </div>
-
 </div>
 <script>
-// ── Proxy Google Apps Script ──────────────────────────────────────
 const PROXY_URL = "https://script.google.com/macros/s/AKfycbwaIEZ67cycBquogC29lB5ZzQ9E8RHPMlnBTfHs6KyidVPKPrbExaq-s4cDlotzc0iu9A/exec";
-// ─────────────────────────────────────────────────────────────────
 
 const thinkerImages = {
   "mill": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDx8sc0h5pMc05QSQKzOgQKWOACT2xXQ2Pg3VLyESlEiU9A55/Kr2i6MZ44FRFEok+Zj1z2FetadZQraqo5KjFc1as4/CaQgnueM3fg/VLRN2EceimsOa1uLc/vYnT6ivedRSJo2TABrgNdtV8psDqDkY61NOu3oy5U9NDz/Oaaanlt2jf7px2qEjFdSZlYZmlBpcZ60jLxTFYeatWEAlmUuSFB7dTVU1ZsphFL83TqD71Mthrc7jRr1UvolbCoT+td/Z3AKFy6qoGct6V5fYES3kcuAqE5duoFd9PZLdWiKko8tcMRjIb0z7V59Z6nRTiLe6rp85ZYbhGdT/C2c1zviOaKSVYRcIuxSFU9c1b0rQWW6nlnkSZ1O8EKFAOemBx04rA1/TW/tu9VJWCu4cZGcgjOKIqN9ync5vzWVpo3OFJ6HtWdOV807eh9as6ipivZEDZGRk+9UTknJrujtc52FIxzQRk0bWwTirJH44p2FA96UKSKaRilcDY0jUPIUwsGbJBTHau80q7eayEauR6fSvLredbeZHcZUGu+sZWsfJmOFgmQFGzkEetc1em2ro2pTs7M6P8A49ImcTKpTB2v/H3P046Vy2r6mb/UJZxbeTtiwMtktj1/CuiaO0u7PML27u+S8rDJJ74rh9bdbORgsiM5GAUHGKwpq7sazfU52Zi8rsTkk5qMjilJ4pprvRysOnSlzkYpB1pDz0phckDcVBLcBTgcmq7zuwwTgegqOrUe5m5EjSs3JrW0XxBcaVIin97bBsmJuceuPSsWlHUVVkSejavf6NqdrBeaXL5E8mVuIgShzgYO3p69OtYd4+nWGmzG4k+0X8y7YYlbPlD+8x/kOtcx05qM47VCpJO5ftHaxbEysOeKfuqjmnB2XoafKLmLZY0ZwKgjlLZDcntTtxxilYdytQaDR2qyAozQKWgBCSaTFLSdqYC0UlLSAUEg5FSBsnNRU8UmNH//2Q==",
@@ -193,67 +133,63 @@ const thinkerImages = {
   "keynes": "data:image/jpeg;base64,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",
   "berlin": "data:image/jpeg;base64,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",
   "sen": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDy5BmOq864cMKsw/dIpJ48xhvQ15Sdme61eI2M7lqUY6HrUVspZgo61ow2sUsoRY/Mf+Js9KfK2yXVUVruUGjHmZ9acuBWq+nOqOHhJHqlZ1zYStAfKciRRkoVxkeoNHJd2uCqpK9iMkE9aVehFVNN0fUtSdjbrgIfmd22gVa8me1naCcqXXuhyDSkop2T1LhKUldqyGSHbk+1VAxZuhLHoKt3C5jOK9U+Hnh/Rl8OwajdwpJcTE5aTGF9KidVUoczQNNyseWRHkir8VqbmzlKjJAz+VZaSBsEGvQPhxpS61NeQHny1DEex4qMRL2cHPsOnJdTh4oC6Apk4GTgd84xXWeH9C8xgzSAA8475rJvYI9B1i7s7r5RFIyH88g/litfSdYsLO4Pm3G7I3KqDPGO/oPrW8pSlBOPU5oKPPLmO1/sW38v5yCcdcc1xmvWKwvmMEfNxmt7/hN4RbMiWVwsipvCtEeVHU56dwc1zmrS6zfQskkiKGfPyhSAPSs4xadzXmbi13MZ2X+y5kjypWTOM9qm0zQb/VtDvr20tQ8WngPPIZAu1cZ6HrwCa5+W5urBmtUjMjugdz1xn/62KZapqsqsFeSOJ8b0DEBgPUd6uVJ6u6WoRre6opXexptbO0bYB6ZqsfEMlvoj6aryK6S7kKk9PSvZ/C3ga01bwxBqbyrhost6D1rxvUNPgN7fQQYlVZGCOp6gHiuehVjUk1Nbf8MXUk3f2b12Mm2fPfORXb/D/wAYHwhrr3TWwuYbiLyZE37cc5Bzg/5NcciqBwKkU7Tn0Oa66iUtDnhHSzOn1XWYdc8X3N9fxLFFcttPlk4TsD/jUuiaVHDfPaBlJjk+ZnP8PUMPYg1z0/zSBv7wq9YX0a3cP2xsRhREHBwVGTjJ/GsorlioxN2kmdo8dpFfJKGbyVUxtIVLKA3X+npUEd3bRoYRZi4CJ8hGSdo4BwT09KrxeQl0xhYKvG5VY4H0warXuq2+mP5zOpUnbtA69/50JXBuyuzGtXX+2iZEAL5BX0welajWyF5Fj2jBziuKmub2C+cyMyTK5bB7Z5/rRJqmoTNue6fOMZHHFXPBTk7pmMMwpxVrM3TqeoWQuLCK+uEtJCd0KykI34dKzYZmtrgOpxg5rLaSdm3NK5PrmnRTNuKuxOehNa/VnFELFxlKyViaF90an2qUHJqrApi3ISDg1OWCjJOAKJLXQcXpqWHaYwMyLuCjiobOZLy+tba5X91IwWQA+vFVXu5HQxKxEZOSPWoo5PKuIpB/Cwb8jW1KlbWRzYjEc2kGdVceHr6wJktruVoRwCT29DW14a8OIZft95L9oePhFfGA/c1seZM9pJ9kjjeRlyPN+4Pr61jeH57u5nuoJ7yWN0xsjRwAOSGwMYPOK61RjCsn3Ob2k6uHm19m3rYyPHWnCG8hvox8so2P/vDp+n8q5POfrXrOv6R/aGizwiRnkVd8e4D7w+n5fjXkvcg1VaNpXOejK8bC7uKikbinHjmo29KyNTQll3ZIwCPSqbSGU89B2qYdT71VBxWFKKOvESeg/NDc0zOSaXPFbHIeseGL/wC06DaPkb1Qo31U4/wrkLS8ktb8XoBY5DN7k5z+mR+FXPAt5+7ubUnowkX6Hg/yFVrdFCgNwAHU5+tRjJtRhJHr5DSjOdWD6pfr/meipMHiBByCMj6V5T4o0/8As/WZNgxFL+8T8TyPzrvdGufMsI05+Qbeax/GdqLjSxOqkvA+cj+6eD/Q12SaqU1JHhzpOhXlTfR2OAJyKY3K07pTDxmuY1P/2Q==",
-
   "bastiat": "data:image/jpeg;base64,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",
-  "oakeshott": "data:image/jpeg;base64,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",
-  "burke": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDwwDHFOYHpRgMxPTnpT8c5rUkj2mp7e0uLgkQxM+OuBwKtaTppv7j58+Sp5x3PpXqWi6EtyyxxQqq+mMAVhVrKmtTanRczyiTTr2LJe3kAAyTjIxVccmvd7/wiyRltsbgLgAZFeL6nZyWWpzwSRlGRj8pHSpo4mNXYqrQdNXKXP4UKOKf2pproMAFMOd1PWjHNAESjnHvTs8YpP4uOtJ3zmmI6rRitvFCGMSLt3Els/p616R4Qv4biV2jk+4OcHrXiccjHBJzg9K9S8MhtMsURozHKVDEM2SQa87GRtDzPSwfvysdlfarqFxfpZRQIsTDLO4bp65HH4V5B4zlkm8QymWIRuo2EA9QDwa9UlvxFCr+cEdgcZXP6CvK/Ft+1/qoaRYxJGCrNHnDjPB56fSufAJ8+x0Y2KVO1zncYqPBzUtNNewjxhqjmnYApM4pCaYiFTkmk70sal2AA5q1DagHdIfwqZSSNKdKU3ZDbeJmbdj5RXq2l3KeI9CjeKRY9WsECsCcCVexz2H8j9a82UoGYLxV2w1CbTbqO7t5AsiHoejDuDXHW989KlRUI6HWnxctossF1CSy5V0IwQfb1rhb+5+2Xss4TYrtlUznaPSuu1m3tdV8PNqNtte5DLIw3cqMcj1NcS4wxA5xVYeEFdxWpzYidSStLYZSE54oNIT0rrRxjejU3jOKUnmmnrTEOhYRHOMmpfNO361XHNKCelYNXO6nVUVZFrdkZ754NBDMvzHgdhUAYjjtUqSEN04qLNG6lGTszo/DciNbX9kzAF4/MjznkjqP8+lc/Iu3PHzZNWLCV1vF2dWyo98jFVZJTubeMPk5470QumRNK5CaQmnkbhioiCDiulHnyVmHU03vQc80mSBn0pkjUOKlUjPNVwakU1BdybA9aXn61GTxQrcdaXKWqjRPHIyMCDhgcg0s0hmneVhy7FjUSmhqSiVKq2h+4dqRl+XeD9RTM09SQDVoxZCWwTxTGJx9ameIYyDUDDFUSf//Z",
   "tocqueville": "data:image/jpeg;base64,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",
   "ortega": "data:image/jpeg;base64,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",
   "acton": "data:image/jpeg;base64,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",
 };
 
+
 const thinkerKeys = {
-  "John Stuart Mill": "mill",
   "John Rawls": "rawls",
+  "John Stuart Mill": "mill",
   "Martha Nussbaum": "nussbaum",
   "Lord Acton": "acton",
   "Alexis de Tocqueville": "tocqueville",
-  "José Ortega y Gasset": "ortega",
-  "Frédéric Bastiat": "bastiat",
+  "Jose Ortega y Gasset": "ortega",
+  "Frederic Bastiat": "bastiat",
   "Friedrich Hayek": "hayek",
   "Milton Friedman": "friedman",
 };
 
-// Perfis: A=Liberal Social, B=Liberal Conservador, C=Neoliberal, D=Minarquista
-// Cada opção tem scores para cada perfil: [A, B, C, D]
 const questions = [
   {
     text: "Qual deve ser o papel do Estado na economia?",
     options: [
-      { text: "Regular ativamente o mercado, redistribuir renda e garantir serviços públicos abrangentes para reduzir desigualdades.", scores: [4,0,0] },
+      { text: "Regular falhas de mercado e externalidades negativas, com foco na inclusão dos mais necessitados pela promoção de oportunidades.", scores: [4,0,0] },
       { text: "Garantir regras do jogo claras, proteger a concorrência e preservar instituições sólidas, sem expansão excessiva.", scores: [1,4,0] },
-      { text: "Limitar-se a proteger contratos e propriedade privada, deixando o resto para o mercado e a cooperação voluntária.", scores: [0,1,4] }
+      { text: "Proteger contratos e direitos fundamentais, como a propriedade privada, deixando o resto para o mercado e a cooperação voluntária.", scores: [0,1,4] }
     ]
   },
   {
     text: "O que você pensa sobre desigualdade econômica?",
     options: [
-      { text: "É uma injustiça estrutural que o Estado deve combater ativamente com políticas redistributivas e sociais.", scores: [4,0,0] },
-      { text: "É natural em certa medida, mas deve ser moderada por instituições e por uma cultura de responsabilidade e solidariedade.", scores: [1,4,0] },
-      { text: "É legítima se resultado de escolhas livres e não de coerção estatal. Soluções voluntárias são preferíveis à intervenção.", scores: [0,1,4] }
+      { text: "Quando em excesso, vira uma injustiça que limita o potencial de desenvolvimento dos indivíduos.", scores: [4,0,0] },
+      { text: "É natural em certa medida, mas pode gerar risco de captura do poder político, devendo ser moderada por instituições e cultura de responsabilidade e solidariedade.", scores: [1,4,0] },
+      { text: "É legítima quando resultado de escolhas livres e não de coerção estatal, cujas distorções precisam ser combatidas para o melhor funcionamento dos mercados.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Como você vê a liberdade individual?",
+    text: "Qual frase melhor representa sua abordagem da liberdade individual?",
     options: [
       { text: "Liberdade real exige condições materiais: sem saúde, educação e renda mínima, a liberdade formal é vazia.", scores: [4,0,0] },
       { text: "A liberdade depende de instituições sólidas e freios ao poder arbitrário, tanto do Estado quanto de maiorias momentâneas.", scores: [1,4,0] },
-      { text: "A liberdade negativa é o valor central: o Estado não deve interferir na vida pessoal nem econômica dos indivíduos.", scores: [0,0,4] }
+      { text: "Liberdade é deixar as pessoas em paz para viverem com seus próprios meios, protegidas de agressões e interferências indevidas.", scores: [0,0,4] }
     ]
   },
   {
-    text: "Sobre direitos sociais como saúde e educação:",
+    text: "Sobre serviços como saúde e educação:",
     options: [
-      { text: "Devem ser universais, públicos e garantidos pelo Estado como direitos fundamentais.", scores: [4,0,0] },
-      { text: "O Estado deve garantir um piso mínimo, mas sem monopolizar esses serviços nem criar dependência excessiva.", scores: [1,4,1] },
+      { text: "O mais importante é que sejam de acesso público e universal, como direitos fundamentais, independente de quem faz a gestão do serviço.", scores: [4,0,0] },
+      { text: "O Estado deve garantir um piso mínimo para acesso de todos, mas jamais monopolizar esses serviços.", scores: [1,4,1] },
       { text: "Devem ser providos pelo mercado e por instituições voluntárias, com liberdade de escolha para cada indivíduo.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Como você avalia mudanças sociais e reformas?",
+    text: "Como você avalia o papel do Estado diante de mudanças sociais?",
     options: [
       { text: "Reformas profundas e rápidas são necessárias para avançar direitos e reduzir injustiças históricas.", scores: [4,0,0] },
-      { text: "Mudanças devem ser graduais e prudentes, testadas na prática antes de ser generalizadas, evitando reformas que gerem consequências imprevisíveis.", scores: [0,4,0] },
+      { text: "Mudanças devem ser graduais e prudentes, testadas na prática antes de serem generalizadas, evitando consequências imprevisíveis.", scores: [0,4,0] },
       { text: "O Estado não deve liderar reformas sociais. Transformações legítimas emergem da sociedade civil e do mercado.", scores: [0,1,4] }
     ]
   },
@@ -261,85 +197,43 @@ const questions = [
     text: "Qual é a sua posição sobre cooperação internacional?",
     options: [
       { text: "A cooperação internacional é essencial para enfrentar desigualdades globais, mudanças climáticas e crises humanitárias.", scores: [4,0,0] },
-      { text: "A cooperação é bem-vinda, mas os interesses e a soberania nacionais devem sempre ter peso relevante nas decisões.", scores: [0,4,0] },
-      { text: "Organismos supranacionais tendem a ampliar o poder estatal. A cooperação deve ser voluntária e descentralizada.", scores: [0,1,4] }
+      { text: "A cooperação é bem-vinda, mas o protagonismo de entes internacionais distantes da população gera uma crise de legitimidade que corrói a confiança.", scores: [0,4,0] },
+      { text: "Estados não podem limitar transações privadas voluntárias entre adultos, independentemente de fronteiras nacionais.", scores: [0,1,4] }
     ]
   },
   {
     text: "O que você pensa sobre tributação?",
     options: [
-      { text: "Impostos progressivos são necessários para financiar serviços públicos e reduzir desigualdades.", scores: [4,0,0] },
-      { text: "Tributação deve ser moderada, previsível e orientada à responsabilidade fiscal, sem onerar excessivamente a economia.", scores: [1,4,0] },
-      { text: "A tributação deve ser mínima. O Estado não tem o direito de tomar a renda dos indivíduos além do estritamente necessário.", scores: [0,1,4] }
+      { text: "Impostos progressivos são necessários para financiar serviços públicos que promovam oportunidades de desenvolvimento da autonomia para os mais pobres.", scores: [4,0,0] },
+      { text: "Tributação deve ser previsível e orientada à responsabilidade fiscal, sem jamais onerar excessivamente a economia.", scores: [1,4,0] },
+      { text: "A tributação deve ser mínima sempre. O Estado não tem o direito de tomar a renda dos indivíduos além do estritamente necessário.", scores: [0,1,4] }
     ]
   },
   {
     text: "Como você vê as tradições e os valores culturais na vida pública?",
     options: [
       { text: "A esfera pública deve ser laica e plural. Tradições não devem limitar direitos individuais nem pautar políticas.", scores: [4,0,0] },
-      { text: "Práticas e valores consolidados ao longo do tempo carregam sabedoria acumulada e não devem ser descartados levianamente por projetos abstratos.", scores: [0,4,0] },
-      { text: "Tradições são escolhas individuais. O Estado não deve nem promover nem restringir nenhuma prática ou crença.", scores: [1,1,4] }
+      { text: "Práticas e valores consolidados ao longo do tempo carregam sabedoria acumulada que não devem ser descartados levianamente por projetos abstratos.", scores: [0,4,0] },
+      { text: "Tradições são escolhas particulares. O Estado não deve nem promover nem restringir nenhuma prática ou crença.", scores: [1,1,4] }
     ]
   },
   {
     text: "Sobre democracia e participação política:",
     options: [
-      { text: "A democracia deve ser expandida e aprofundada, com mais participação popular e representação de minorias.", scores: [4,0,0] },
+      { text: "A democracia deve ser expandida e aprofundada, com ações que favoreçam mais participação popular e representação de minorias.", scores: [4,0,0] },
       { text: "A democracia representativa é valiosa, mas deve ter freios contra a tirania da maioria e o populismo.", scores: [0,4,0] },
-      { text: "A democracia não deve ultrapassar os limites dos direitos individuais. Decisões coletivas não podem violar liberdades.", scores: [0,1,4] }
+      { text: "A democracia não deve ultrapassar os limites dos direitos individuais. Decisões coletivas não podem violar liberdades ou relativizar a propriedade.", scores: [0,1,4] }
     ]
   },
   {
-    text: "Qual é a sua visão sobre segurança pública?",
+    text: "Qual abordagem mais representa sua visão para a segurança pública?",
     options: [
-      { text: "O combate ao crime deve priorizar prevenção social, educação e redução da desigualdade como causas estruturais.", scores: [4,0,0] },
-      { text: "Segurança depende de leis claras, polícia eficiente e instituições estáveis. A ordem é condição da liberdade.", scores: [0,4,0] },
-      { text: "O indivíduo tem amplo direito à autodefesa. O monopólio estatal da força deve ser questionado e limitado.", scores: [0,0,4] }
-    ]
-  },
-  {
-    text: "Sobre direitos civis e pautas progressistas:",
-    options: [
-      { text: "O Estado deve ampliar e garantir ativamente direitos civis, combatendo discriminações e promovendo igualdade.", scores: [4,0,0] },
-      { text: "Direitos individuais devem ser protegidos, mas reformas aceleradas sem base institucional sólida tendem a gerar reações e instabilidade.", scores: [0,4,0] },
-      { text: "Cada indivíduo deve ter plena liberdade sobre sua vida. O Estado não tem papel em regular comportamentos pessoais.", scores: [1,0,4] }
-    ]
-  },
-  {
-    text: "Como você avalia privatizações de serviços públicos?",
-    options: [
-      { text: "Com muita cautela: privatizar saúde, educação e saneamento pode excluir quem não tem renda suficiente.", scores: [4,0,0] },
-      { text: "Caso a caso: setores estratégicos podem permanecer públicos, mas a iniciativa privada é mais eficiente em muitos casos.", scores: [0,4,0] },
-      { text: "Em geral positivas: o mercado aloca recursos melhor que monopólios estatais. O Estado deve ser mínimo.", scores: [0,0,4] }
-    ]
-  },
-  {
-    text: "O que você pensa sobre regulação de empresas e mercados?",
-    options: [
-      { text: "Mercados precisam ser regulados para evitar monopólios, abusos e externalidades negativas como a degradação ambiental.", scores: [4,0,0] },
-      { text: "Regulação é necessária para garantir concorrência justa e estabilidade, mas não deve ser excessiva ou burocrática.", scores: [1,4,0] },
-      { text: "A maioria das regulações atrapalha mais do que ajuda. Contratos e direitos de propriedade bem definidos bastam.", scores: [0,0,4] }
-    ]
-  },
-  {
-    text: "Sobre o livre comércio e a abertura econômica:",
-    options: [
-      { text: "O comércio é positivo, mas deve vir acompanhado de proteções sociais para os trabalhadores afetados.", scores: [4,0,0] },
-      { text: "O livre comércio é importante, mas a soberania econômica e setores estratégicos nacionais merecem proteção.", scores: [0,4,0] },
-      { text: "Fronteiras comerciais são formas de coerção. Pessoas e mercadorias devem circular livremente.", scores: [0,0,4] }
-    ]
-  },
-  {
-    text: "Qual frase mais se aproxima da sua visão sobre Estado e liberdade?",
-    options: [
-      { text: "Liberdade sem igualdade de condições é privilégio de poucos. O Estado deve garantir oportunidades reais para todos.", scores: [4,0,0] },
-      { text: "A liberdade duradoura depende de instituições sólidas, tradições respeitadas e mudanças graduais e responsáveis.", scores: [0,4,0] },
-      { text: "Quanto menos Estado, mais liberdade. O poder estatal deve ser minimizado para que o indivíduo possa florescer.", scores: [0,0,4] }
+      { text: "O combate ao crime precisa ser combinado com políticas de inclusão social.", scores: [4,0,0] },
+      { text: "Acabar com a impunidade é a estratégia mais importante para a segurança, com leis claras, polícia eficiente e instituições estáveis.", scores: [0,4,0] },
+      { text: "O indivíduo deve ter amplo direito à autodefesa. O monopólio estatal da força deve ser questionado e superado.", scores: [0,0,4] }
     ]
   }
 ];
-
-
 
 
 
@@ -358,12 +252,12 @@ const results = {
   B: {
     title: "Liberal Conservador",
     subtitle: "Liberdade e Ordem",
-    desc: "Você defende uma economia de livre mercado combinada com uma organização social próxima ao comunitarismo. Valoriza instituições sólidas, tradições e mudanças graduais. É cético quanto ao poder transformador do Estado e atento à tirania da maioria. Mantém vínculos nacionais sem negar a cooperação internacional.",
+    desc: "Você defende uma economia de livre mercado combinada com uma organização social próxima ao comunitarismo. Valoriza instituições sólidas e mudanças graduais. É cético quanto ao poder transformador do Estado e atento à tirania da maioria. Mantém vínculos nacionais sem negar a cooperação internacional.",
     tags: ["Livre mercado", "Instituições sólidas", "Prudência", "Comunitarismo", "Soberania nacional"],
     thinkers: [
       { name: "Lord Acton", desc: "Formulou que todo poder corrompe e o poder absoluto corrompe absolutamente, defendendo limites institucionais ao poder do Estado e da maioria." },
       { name: "Alexis de Tocqueville", desc: "Analisou os riscos da tirania da maioria e a importância das instituições intermediárias para a liberdade democrática." },
-      { name: "José Ortega y Gasset", desc: "Filósofo espanhol que alertou para o risco da massificação política e defendeu uma democracia liberal guiada por valores e instituições sólidas." }
+      { name: "Jose Ortega y Gasset", desc: "Filósofo espanhol que alertou para o risco da massificação política e defendeu uma democracia liberal guiada por valores e instituições sólidas." }
     ]
   },
   C: {
@@ -372,7 +266,7 @@ const results = {
     desc: "Você defende uma economia laissez-faire com forte ceticismo à atuação do Estado para promover liberdade ou igualdade. Prioriza liberdades negativas e individuais, entendendo que o Estado não deve interferir na vida pessoal nem econômica. Prefere soluções voluntárias e de mercado ao combate às desigualdades.",
     tags: ["Laissez-faire", "Liberdade negativa", "Estado mínimo", "Voluntarismo", "Propriedade privada"],
     thinkers: [
-      { name: "Frédéric Bastiat", desc: "Economista liberal francês que defendeu o livre mercado, criticou o protecionismo e alertou para os efeitos invisíveis da intervenção estatal." },
+      { name: "Frederic Bastiat", desc: "Economista liberal francês que defendeu o livre mercado, criticou o protecionismo e alertou para os efeitos invisíveis da intervenção estatal." },
       { name: "Friedrich Hayek", desc: "Argumentou que o sistema de preços carrega mais informação do que qualquer planejador central poderia processar." },
       { name: "Milton Friedman", desc: "Pai do monetarismo moderno, defensor de mercados livres, vouchers escolares e mínima intervenção do Estado." }
     ]
@@ -381,7 +275,6 @@ const results = {
 
 const scoreLabels = { A: "Liberal Social", B: "Liberal Conservador", C: "Libertário" };
 
-// Embaralhar perguntas e opções
 questions.sort(() => Math.random() - 0.5);
 questions.forEach(q => q.options.sort(() => Math.random() - 0.5));
 
@@ -452,7 +345,7 @@ async function submitEmail() {
     input.classList.add("error"); errEl.style.display = "block"; return;
   }
   input.classList.remove("error"); errEl.style.display = "none";
-  btn.disabled = true; btn.textContent = "Enviando…"; statusEl.textContent = ""; statusEl.className = "email-status";
+  btn.disabled = true; btn.textContent = "Enviando..."; statusEl.textContent = ""; statusEl.className = "email-status";
   try {
     await sendToOdoo(email);
     statusEl.textContent = "✓ E-mail registrado com sucesso!";
@@ -473,13 +366,11 @@ function showResult() {
   document.getElementById("result-text").textContent = r.title;
   document.getElementById("result-subtitle").textContent = r.subtitle;
   document.getElementById("result-desc").textContent = r.desc;
-
   const tagsEl = document.getElementById("result-tags");
   r.tags.forEach(function(t) {
     const span = document.createElement("span");
     span.className = "tag"; span.textContent = t; tagsEl.appendChild(span);
   });
-
   const thinkersEl = document.getElementById("thinkers-list");
   r.thinkers.forEach(function(t) {
     const card = document.createElement("div");
@@ -501,11 +392,7 @@ function showResult() {
     card.appendChild(avatarEl); card.appendChild(infoEl);
     thinkersEl.appendChild(card);
   });
-
-
-
   document.getElementById("result").style.display = "block";
-
 }
 
 loadQuestion();
